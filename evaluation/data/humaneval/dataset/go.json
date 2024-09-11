@@ -1,0 +1,986 @@
+{
+    "0": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Check if in given list of numbers, are any two numbers closer to each other than given threshold.\n// >>> HasCloseElements([]float64{1.0, 2.0, 3.0}, 0.5)\n// false\n// >>> HasCloseElements([]float64{1.0, 2.8, 3.0, 4.0, 5.0, 2.0}, 0.3)\n// true\nfunc HasCloseElements(numbers []float64, threshold float64) bool {\n",
+        "question": "Check if in given list of numbers, are any two numbers closer to each other than given threshold.",
+        "declaration": "\nfunc HasCloseElements(numbers []float64, threshold float64) bool {\n",
+        "canonical_solution": "    for i := 0; i < len(numbers); i++ {\n        for j := i + 1; j < len(numbers); j++ {\n            var distance float64 = math.Abs(numbers[i] - numbers[j])\n            if distance < threshold {\n                return true\n            }\n        }\n    }\n    return false\n}\n\n"
+    },
+    "1": {
+        "prompt": "\n// Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n// separate those group into separate strings and return the list of those.\n// Separate groups are balanced (each open brace is properly closed) and not nested within each other\n// Ignore any spaces in the input string.\n// >>> SeparateParenGroups('( ) (( )) (( )( ))')\n// ['()', '(())', '(()())']\nfunc SeparateParenGroups(paren_string string) []string {\n",
+        "question": "Input to this function is a string containing multiple groups of nested parentheses. Your goal is to separate those group into separate strings and return the list of those. Separate groups are balanced (each open brace is properly closed) and not nested within each other Ignore any spaces in the input string.",
+        "declaration": "\nfunc SeparateParenGroups(paren_string string) []string {\n",
+        "canonical_solution": "    result := make([]string, 0)\n    current_string := make([]rune, 0)\n    current_depth := 0\n\n    for _, c := range paren_string {\n        if c == '(' {\n            current_depth += 1\n            current_string = append(current_string, c)\n        }else if c== ')'{\n            current_depth -= 1\n            current_string = append(current_string, c)\n\n            if current_depth == 0{\n                result = append(result, string(current_string))\n                current_string =  make([]rune, 0)\n            }\n        }\n\n    }\n    return result\n}\n\n"
+    },
+    "2": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given a positive floating point number, it can be decomposed into\n// and integer part (largest integer smaller than given number) and decimals\n// (leftover part always smaller than 1).\n// \n// Return the decimal part of the number.\n// >>> TruncateNumber(3.5)\n// 0.5\nfunc TruncateNumber(number float64) float64 {\n",
+        "question": "Given a positive floating point number, it can be decomposed into and integer part (largest integer smaller than given number) and decimals (leftover part always smaller than 1). Return the decimal part of the number.",
+        "declaration": "\nfunc TruncateNumber(number float64) float64 {\n",
+        "canonical_solution": "    return math.Mod(number,1)\n}\n\n"
+    },
+    "3": {
+        "prompt": "\n// You're given a list of deposit and withdrawal operations on a bank account that starts with\n// zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n// at that point function should return true. Otherwise it should return false.\n// >>> BelowZero([1, 2, 3])\n// false\n// >>> BelowZero([1, 2, -4, 5])\n// true\nfunc BelowZero(operations []int) bool {\n",
+        "question": "You're given a list of deposit and withdrawal operations on a bank account that starts with zero balance. Your task is to detect if at any point the balance of account fallls below zero, and at that point function should return True. Otherwise it should return False.",
+        "declaration": "\nfunc BelowZero(operations []int) bool {\n",
+        "canonical_solution": "    balance := 0\n    for _, op := range operations {\n        balance += op\n        if balance < 0 {\n            return true\n        }\n    }\n    return false\n}\n\n"
+    },
+    "4": {
+        "prompt": "import (\n    \"math\"\n)\n\n// For a given list of input numbers, calculate Mean Absolute Deviation\n// around the mean of this dataset.\n// Mean Absolute Deviation is the average absolute difference between each\n// element and a centerpoint (mean in this case):\n// MAD = average | x - x_mean |\n// >>> MeanAbsoluteDeviation([1.0, 2.0, 3.0, 4.0])\n// 1.0\nfunc MeanAbsoluteDeviation(numbers []float64) float64 {\n",
+        "question": "For a given list of input numbers, calculate Mean Absolute Deviation around the mean of this dataset. Mean Absolute Deviation is the average absolute difference between each element and a centerpoint (mean in this case): MAD = average | x - x_mean |",
+        "declaration": "\nfunc MeanAbsoluteDeviation(numbers []float64) float64 {\n",
+        "canonical_solution": "    sum := func(numbers []float64) float64 {\n        sum := 0.0\n        for _, num := range numbers {\n            sum += num\n        }\n        return sum\n    }\n\n    mean := sum(numbers) / float64(len(numbers))\n    numList := make([]float64, 0)\n    for _, x := range numbers {\n        numList = append(numList, math.Abs(x-mean))\n    }\n    return sum(numList) / float64(len(numbers))\n}\n\n"
+    },
+    "5": {
+        "prompt": "\n// Insert a number 'delimeter' between every two consecutive elements of input list `numbers'\n// >>> Intersperse([], 4)\n// []\n// >>> Intersperse([1, 2, 3], 4)\n// [1, 4, 2, 4, 3]\nfunc Intersperse(numbers []int, delimeter int) []int {\n",
+        "question": "Insert a number 'delimeter' between every two consecutive elements of input list `numbers'",
+        "declaration": "\nfunc Intersperse(numbers []int, delimeter int) []int {\n",
+        "canonical_solution": "    result := make([]int, 0)\n    if len(numbers) == 0 {\n        return result\n    }\n    for i := 0; i < len(numbers)-1; i++ {\n        n := numbers[i]\n        result = append(result, n)\n        result = append(result, delimeter)\n    }\n    result = append(result, numbers[len(numbers)-1])\n    return result\n}\n\n"
+    },
+    "6": {
+        "prompt": "import (\n    \"math\"\n    \"strings\"\n)\n\n// Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n// For each of the group, output the deepest level of nesting of parentheses.\n// E.g. (()()) has maximum two levels of nesting while ((())) has three.\n// \n// >>> ParseNestedParens('(()()) ((())) () ((())()())')\n// [2, 3, 1, 3]\nfunc ParseNestedParens(paren_string string) []int {\n",
+        "question": "Input to this function is a string represented multiple groups for nested parentheses separated by spaces. For each of the group, output the deepest level of nesting of parentheses. E.g. (()()) has maximum two levels of nesting while ((())) has three.",
+        "declaration": "\nfunc ParseNestedParens(paren_string string) []int {\n",
+        "canonical_solution": "    parse_paren_group := func(s string) int {\n        depth := 0\n        max_depth := 0\n        for _, c := range s {\n            if c == '(' {\n                depth += 1\n                max_depth = int(math.Max(float64(depth), float64(max_depth)))\n            } else {\n                depth -= 1\n            }\n        }\n        return max_depth\n    }\n    result := make([]int, 0)\n    for _, x := range strings.Split(paren_string, \" \") {\n        result = append(result, parse_paren_group(x))\n    }\n    return result\n\n}\n\n"
+    },
+    "7": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Filter an input list of strings only for ones that contain given substring\n// >>> FilterBySubstring([], 'a')\n// []\n// >>> FilterBySubstring(['abc', 'bacd', 'cde', 'array'], 'a')\n// ['abc', 'bacd', 'array']\nfunc FilterBySubstring(stringList []string, substring string) []string {\n",
+        "question": "Filter an input list of strings only for ones that contain given substring",
+        "declaration": "\nfunc FilterBySubstring(stringList []string, substring string) []string {\n",
+        "canonical_solution": "    result := make([]string, 0)\n    for _, x := range stringList {\n        if strings.Index(x, substring) != -1 {\n            result = append(result, x)\n        }\n    }\n    return result\n}\n\n"
+    },
+    "8": {
+        "prompt": "\n// For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n// Empty sum should be equal to 0 and empty product should be equal to 1.\n// >>> SumProduct([])\n// (0, 1)\n// >>> SumProduct([1, 2, 3, 4])\n// (10, 24)\nfunc SumProduct(numbers []int) [2]int {\n",
+        "question": "For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list. Empty sum should be equal to 0 and empty product should be equal to 1.",
+        "declaration": "\nfunc SumProduct(numbers []int) [2]int {\n",
+        "canonical_solution": "    sum_value := 0\n    prod_value := 1\n\n    for _, n := range numbers {\n        sum_value += n\n        prod_value *= n\n    }\n    return [2]int{sum_value, prod_value}\n}\n\n"
+    },
+    "9": {
+        "prompt": "import (\n    \"math\"\n)\n\n// From a given list of integers, generate a list of rolling maximum element found until given moment\n// in the sequence.\n// >>> RollingMax([1, 2, 3, 2, 3, 4, 2])\n// [1, 2, 3, 3, 3, 4, 4]\nfunc RollingMax(numbers []int) []int {\n",
+        "question": "From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.",
+        "declaration": "\nfunc RollingMax(numbers []int) []int {\n",
+        "canonical_solution": "    running_max := math.MinInt32\n    result := make([]int, 0)\n\n    for _, n := range numbers {\n        if running_max == math.MinInt32 {\n            running_max = n\n        } else {\n            running_max = int(math.Max(float64(running_max), float64(n)))\n        }\n        result = append(result, running_max)\n    }\n\n    return result\n}\n\n"
+    },
+    "10": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Test if given string is a palindrome.\nfunc IsPalindrome(str string) bool {\n    runes := []rune(str)\n    result := make([]rune, 0)\n    for i := len(runes) - 1; i >= 0; i-- {\n        result = append(result, runes[i])\n    }\n    return str == string(result)\n}\n// Find the shortest palindrome that begins with a supplied string.\n// Algorithm idea is simple:\n// - Find the longest postfix of supplied string that is a palindrome.\n// - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n// >>> MakePalindrome('')\n// ''\n// >>> MakePalindrome('cat')\n// 'catac'\n// >>> MakePalindrome('cata')\n// 'catac'\nfunc MakePalindrome(str string) string {\n",
+        "question": "Find the shortest palindrome that begins with a supplied string. Algorithm idea is simple: - Find the longest postfix of supplied string that is a palindrome. - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.",
+        "declaration": "\nfunc MakePalindrome(str string) string {\n",
+        "canonical_solution": "    if strings.TrimSpace(str) == \"\" {\n        return \"\"\n    }\n    beginning_of_suffix := 0\n    runes := []rune(str)\n    for !IsPalindrome(string(runes[beginning_of_suffix:])) {\n        beginning_of_suffix += 1\n    }\n    result := make([]rune, 0)\n    for i := len(str[:beginning_of_suffix]) - 1; i >= 0; i-- {\n        result = append(result, runes[i])\n    }\n    return str + string(result)\n}\n\n"
+    },
+    "11": {
+        "prompt": "import (\n    \"fmt\"\n)\n\n// Input are two strings a and b consisting only of 1s and 0s.\n// Perform binary XOR on these inputs and return result also as a string.\n// >>> StringXor('010', '110')\n// '100'\nfunc StringXor(a string, b string) string {\n",
+        "question": "Input are two strings a and b consisting only of 1s and 0s. Perform binary XOR on these inputs and return result also as a string.",
+        "declaration": "\nfunc StringXor(a string, b string) string {\n",
+        "canonical_solution": "    s2b := func(bs string) int32 {\n        result := int32(0)\n        runes := []rune(bs)\n        for _, r := range runes {\n            result = result << 1\n            temp := r - rune('0')\n            result += temp\n        }\n        return result\n    }\n    ab := s2b(a)\n    bb := s2b(b)\n    res := ab ^ bb\n    sprint := fmt.Sprintf(\"%b\", res)\n    for i := 0; i < len(a)-len(sprint); i++ {\n        sprint = \"0\" + sprint\n    }\n    return sprint\n}\n\n"
+    },
+    "12": {
+        "prompt": "// Out of list of strings, return the Longest one. Return the first one in case of multiple\n// strings of the same length. Return nil in case the input list is empty.\n// >>> Longest([])\n// nil\n// >>> Longest(['a', 'b', 'c'])\n// 'a'\n// >>> Longest(['a', 'bb', 'ccc'])\n// 'ccc'\nfunc Longest(strings []string) interface{}{\n",
+        "question": "Out of list of strings, return the longest one. Return the first one in case of multiple strings of the same length. Return None in case the input list is empty.",
+        "declaration": "\nfunc Longest(strings []string) interface{}{\n",
+        "canonical_solution": "    if strings == nil || len(strings) == 0 {\n        return nil\n    }\n    maxlen := 0\n    maxi := 0\n    for i, s := range strings {\n        if maxlen < len(s) {\n            maxlen = len(s)\n            maxi = i\n        }\n    }\n    return strings[maxi]\n}\n\n"
+    },
+    "13": {
+        "prompt": "\n// Return a greatest common divisor of two integers a and b\n// >>> GreatestCommonDivisor(3, 5)\n// 1\n// >>> GreatestCommonDivisor(25, 15)\n// 5\nfunc GreatestCommonDivisor(a int,b int) int{\n",
+        "question": "Return a greatest common divisor of two integers a and b",
+        "declaration": "\nfunc GreatestCommonDivisor(a int,b int) int{\n",
+        "canonical_solution": "    if b < 2 {\n\t\treturn b\n\t}\n\tvar gcd int = 1\n\tfor i := 2; i < b; i++ {\n\t\tif a%i == 0 && b%i == 0 {\n\t\t\tgcd = i\n\t\t}\n\t}\n\treturn gcd\n}\n\n"
+    },
+    "14": {
+        "prompt": "\n// Return list of all prefixes from shortest to longest of the input string\n// >>> AllPrefixes('abc')\n// ['a', 'ab', 'abc']\nfunc AllPrefixes(str string) []string{\n",
+        "question": "Return list of all prefixes from shortest to longest of the input string",
+        "declaration": "\nfunc AllPrefixes(str string) []string{\n",
+        "canonical_solution": "    prefixes := make([]string, 0, len(str))\n\tfor i := 0; i < len(str); i++ {\n\t\tprefixes = append(prefixes, str[:i+1])\n\t}\n\treturn prefixes\n}\n\n"
+    },
+    "15": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n// >>> StringSequence(0)\n// '0'\n// >>> StringSequence(5)\n// '0 1 2 3 4 5'\nfunc StringSequence(n int) string{\n",
+        "question": "Return a string containing space-delimited numbers starting from 0 upto n inclusive.",
+        "declaration": "\nfunc StringSequence(n int) string{\n",
+        "canonical_solution": "    var seq string\n    for i := 0; i <= n; i++ {\n        seq += strconv.Itoa(i)\n        if i != n {\n            seq += \" \"\n        }\n    }\n    return seq\n}\n\n"
+    },
+    "16": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a string, find out how many distinct characters (regardless of case) does it consist of\n// >>> CountDistinctCharacters('xyzXYZ')\n// 3\n// >>> CountDistinctCharacters('Jerry')\n// 4\nfunc CountDistinctCharacters(str string) int{\n",
+        "question": "Given a string, find out how many distinct characters (regardless of case) does it consist of",
+        "declaration": "\nfunc CountDistinctCharacters(str string) int{\n",
+        "canonical_solution": "    lower := strings.ToLower(str)\n\tcount := 0\n\tset := make(map[rune]bool)\n\tfor _, i := range lower {\n\t\tif set[i] == true {\n\t\t\tcontinue\n\t\t} else {\n\t\t\tset[i] = true\n\t\t\tcount++\n\t\t}\n\t}\n\treturn count\n}\n\n\n"
+    },
+    "17": {
+        "prompt": "\n// Input to this function is a string representing musical notes in a special ASCII format.\n// Your task is to parse this string and return list of integers corresponding to how many beats does each\n// not last.\n// \n// Here is a legend:\n// 'o' - whole note, lasts four beats\n// 'o|' - half note, lasts two beats\n// '.|' - quater note, lasts one beat\n// \n// >>> ParseMusic('o o| .| o| o| .| .| .| .| o o')\n// [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\nfunc ParseMusic(music_string string) []int{\n",
+        "question": "Input to this function is a string representing musical notes in a special ASCII format. Your task is to parse this string and return list of integers corresponding to how many beats does each not last. Here is a legend: 'o' - whole note, lasts four beats 'o|' - half note, lasts two beats '.|' - quater note, lasts one beat",
+        "declaration": "\nfunc ParseMusic(music_string string) []int{\n",
+        "canonical_solution": "    note_map := map[string]int{\"o\": 4, \"o|\": 2, \".|\": 1}\n\tsplit := strings.Split(music_string, \" \")\n\tresult := make([]int, 0)\n\tfor _, x := range split {\n\t\tif i, ok := note_map[x]; ok {\n\t\t\tresult = append(result, i)\n\t\t}\n\t}\n\treturn result\n}\n\n\n"
+    },
+    "18": {
+        "prompt": "\n// Find how many times a given substring can be found in the original string. Count overlaping cases.\n// >>> HowManyTimes('', 'a')\n// 0\n// >>> HowManyTimes('aaa', 'a')\n// 3\n// >>> HowManyTimes('aaaa', 'aa')\n// 3\nfunc HowManyTimes(str string,substring string) int{\n",
+        "question": "Find how many times a given substring can be found in the original string. Count overlaping cases.",
+        "declaration": "\nfunc HowManyTimes(str string,substring string) int{\n",
+        "canonical_solution": "    times := 0\n\tfor i := 0; i < (len(str) - len(substring) + 1); i++ {\n\t\tif str[i:i+len(substring)] == substring {\n\t\t\ttimes += 1\n\t\t}\n\t}\n\treturn times\n}\n\n\n"
+    },
+    "19": {
+        "prompt": "import (\n    \"sort\"\n    \"strings\"\n)\n\n// Input is a space-delimited string of numberals from 'zero' to 'nine'.\n// Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n// Return the string with numbers sorted from smallest to largest\n// >>> SortNumbers('three one five')\n// 'one three five'\nfunc SortNumbers(numbers string) string{\n",
+        "question": "Input is a space-delimited string of numberals from 'zero' to 'nine'. Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'. Return the string with numbers sorted from smallest to largest",
+        "declaration": "\nfunc SortNumbers(numbers string) string{\n",
+        "canonical_solution": "    valueMap := map[string]int{\n\t\t\"zero\":  0,\n\t\t\"one\":   1,\n\t\t\"two\":   2,\n\t\t\"three\": 3,\n\t\t\"four\":  4,\n\t\t\"five\":  5,\n\t\t\"six\":   6,\n\t\t\"seven\": 7,\n\t\t\"eight\": 8,\n\t\t\"nine\":  9,\n\t}\n\tstringMap := make(map[int]string)\n\tfor s, i := range valueMap {\n\t\tstringMap[i] = s\n\t}\n\tsplit := strings.Split(numbers, \" \")\n\ttemp := make([]int, 0)\n\tfor _, s := range split {\n\t\tif i, ok := valueMap[s]; ok {\n\t\t\ttemp = append(temp, i)\n\t\t}\n\t}\n\tsort.Ints(temp)\n\tresult := make([]string, 0)\n\tfor _, i := range temp {\n\t\tresult = append(result, stringMap[i])\n\t}\n\treturn strings.Join(result, \" \")\n}\n\n\n"
+    },
+    "20": {
+        "prompt": "\n// From a supplied list of numbers (of length at least two) select and return two that are the closest to each\n// other and return them in order (smaller number, larger number).\n// >>> FindClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])\n// (2.0, 2.2)\n// >>> FindClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])\n// (2.0, 2.0)\nfunc FindClosestElements(numbers []float64) [2]float64 {\n",
+        "question": "From a supplied list of numbers (of length at least two) select and return two that are the closest to each other and return them in order (smaller number, larger number).",
+        "declaration": "\nfunc FindClosestElements(numbers []float64) [2]float64 {\n",
+        "canonical_solution": "    distance := math.MaxFloat64\n\tvar closestPair [2]float64\n\tfor idx, elem := range numbers {\n\t\tfor idx2, elem2 := range numbers {\n\t\t\tif idx != idx2 {\n\t\t\t\tif distance == math.MinInt64 {\n\t\t\t\t\tdistance = math.Abs(elem - elem2)\n\t\t\t\t\tfloat64s := []float64{elem, elem2}\n\t\t\t\t\tsort.Float64s(float64s)\n\t\t\t\t\tclosestPair = [2]float64{float64s[0], float64s[1]}\n\t\t\t\t} else {\n\t\t\t\t\tnewDistance := math.Abs(elem - elem2)\n\t\t\t\t\tif newDistance < distance{\n\t\t\t\t\t\tdistance = newDistance\n\t\t\t\t\t\tfloat64s := []float64{elem, elem2}\n\t\t\t\t\t\tsort.Float64s(float64s)\n\t\t\t\t\t\tclosestPair = [2]float64{float64s[0], float64s[1]}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn closestPair\n}\n\n\n"
+    },
+    "21": {
+        "prompt": "\n// Given list of numbers (of at least two elements), apply a linear transform to that list,\n// such that the smallest number will become 0 and the largest will become 1\n// >>> RescaleToUnit([1.0, 2.0, 3.0, 4.0, 5.0])\n// [0.0, 0.25, 0.5, 0.75, 1.0]\nfunc RescaleToUnit(numbers []float64) []float64 {\n",
+        "question": "Given list of numbers (of at least two elements), apply a linear transform to that list, such that the smallest number will become 0 and the largest will become 1",
+        "declaration": "\nfunc RescaleToUnit(numbers []float64) []float64 {\n",
+        "canonical_solution": "    smallest := numbers[0]\n\tlargest := smallest\n\tfor _, n := range numbers {\n\t\tif smallest > n {\n\t\t\tsmallest = n\n\t\t}\n\t\tif largest < n {\n\t\t\tlargest = n\n\t\t}\n\t}\n\tif smallest == largest {\n\t\treturn numbers\n\t}\n\tfor i, n := range numbers {\n\t\tnumbers[i] = (n - smallest) / (largest - smallest)\n\t}\n\treturn numbers\n}\n\n"
+    },
+    "22": {
+        "prompt": "// Filter given list of any values only for integers\n// >>> FilterIntegers(['a', 3.14, 5])\n// [5]\n// >>> FilterIntegers([1, 2, 3, 'abc', {}, []])\n// [1, 2, 3]\nfunc FilterIntegers(values []interface{}) []int {\n",
+        "question": "Filter given list of any python values only for integers",
+        "declaration": "\nfunc FilterIntegers(values []interface{}) []int {\n",
+        "canonical_solution": "    result := make([]int, 0)\n    for _, val := range values {\n        switch i := val.(type) {\n        case int:\n            result = append(result, i)\n        }\n    }\n    return result\n}\n\n"
+    },
+    "23": {
+        "prompt": "\n// Return length of given string\n// >>> Strlen('')\n// 0\n// >>> Strlen('abc')\n// 3\nfunc Strlen(str string) int {\n",
+        "question": "Return length of given string",
+        "declaration": "\nfunc Strlen(str string) int {\n",
+        "canonical_solution": "    return len(str)\n}\n\n"
+    },
+    "24": {
+        "prompt": "\n// For a given number n, find the largest number that divides n evenly, smaller than n\n// >>> LargestDivisor(15)\n// 5\nfunc LargestDivisor(n int) int {\n",
+        "question": "For a given number n, find the largest number that divides n evenly, smaller than n",
+        "declaration": "\nfunc LargestDivisor(n int) int {\n",
+        "canonical_solution": "    for i := n - 1; i > 0; i-- {\n\t\tif n % i == 0 {\n\t\t\treturn i\n\t\t}\n\t}\n\treturn 0\n}\n\n"
+    },
+    "25": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Return list of prime factors of given integer in the order from smallest to largest.\n// Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.\n// Input number should be equal to the product of all factors\n// >>> Factorize(8)\n// [2, 2, 2]\n// >>> Factorize(25)\n// [5, 5]\n// >>> Factorize(70)\n// [2, 5, 7]\nfunc Factorize(n int) []int {\n",
+        "question": "Return list of prime factors of given integer in the order from smallest to largest. Each of the factors should be listed number of times corresponding to how many times it appeares in factorization. Input number should be equal to the product of all factors",
+        "declaration": "\nfunc Factorize(n int) []int {\n",
+        "canonical_solution": "    fact := make([]int, 0)\n\tfor i := 2; i <= int(math.Sqrt(float64(n))+1); {\n\t\tif n%i == 0 {\n\t\t\tfact = append(fact, i)\n\t\t\tn = n / i\n\t\t} else {\n\t\t\ti++\n\t\t}\n\t}\n\tif n > 1 {\n\t\tfact = append(fact, n)\n\t}\n\treturn fact\n}\n\n"
+    },
+    "26": {
+        "prompt": "\n// From a list of integers, remove all elements that occur more than once.\n// Keep order of elements left the same as in the input.\n// >>> RemoveDuplicates([1, 2, 3, 2, 4])\n// [1, 3, 4]\nfunc RemoveDuplicates(numbers []int) []int {\n",
+        "question": "From a list of integers, remove all elements that occur more than once. Keep order of elements left the same as in the input.",
+        "declaration": "\nfunc RemoveDuplicates(numbers []int) []int {\n",
+        "canonical_solution": "    c := make(map[int] int)\n\tfor _, number := range numbers {\n\t\tif i, ok := c[number]; ok {\n\t\t\tc[number] = i + 1\n\t\t} else {\n\t\t\tc[number] = 1\n\t\t}\n\t}\n\tresult := make([]int, 0)\n\tfor _, number := range numbers {\n\t\tif c[number] <= 1 {\n\t\t\tresult = append(result, number)\n\t\t}\n\t}\n\treturn result\n}\n\n"
+    },
+    "27": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n// >>> FlipCase('Hello')\n// 'hELLO'\nfunc FlipCase(str string) string {\n",
+        "question": "For a given string, flip lowercase characters to uppercase and uppercase to lowercase.",
+        "declaration": "\nfunc FlipCase(str string) string {\n",
+        "canonical_solution": "    result := []rune{}\n    for _, c := range str {\n        if c >= 'A' && c <= 'Z' {\n            result = append(result, 'a' + ((c - 'A' + 26) % 26))\n        } else if c >= 'a' && c <= 'z' {\n            result = append(result, 'A' + ((c - 'a' + 26) % 26))\n        } else {\n            result = append(result, c)\n        }\n    }\n    return string(result)\n}\n\n"
+    },
+    "28": {
+        "prompt": "\n// Concatenate list of strings into a single string\n// >>> Concatenate([])\n// ''\n// >>> Concatenate(['a', 'b', 'c'])\n// 'abc'\nfunc Concatenate(strings []string) string {\n",
+        "question": "Concatenate list of strings into a single string",
+        "declaration": "\nfunc Concatenate(strings []string) string {\n",
+        "canonical_solution": "    if len(strings) == 0 {\n\t\treturn \"\"\n\t}\n\treturn strings[0] + Concatenate(strings[1:])\n}\n\n"
+    },
+    "29": {
+        "prompt": "\n// Filter an input list of strings only for ones that start with a given prefix.\n// >>> FilterByPrefix([], 'a')\n// []\n// >>> FilterByPrefix(['abc', 'bcd', 'cde', 'array'], 'a')\n// ['abc', 'array']\nfunc FilterByPrefix(strings []string,prefix string) []string {\n",
+        "question": "Filter an input list of strings only for ones that start with a given prefix.",
+        "declaration": "\nfunc FilterByPrefix(strings []string,prefix string) []string {\n",
+        "canonical_solution": "    if len(strings) == 0 {\n        return []string{}\n    }\n    res := make([]string, 0, len(strings))\n\tfor _, s := range strings {\n\t\tif s[:len(prefix)] == prefix {\n\t\t\tres = append(res, s)\n\t\t}\n\t}\n\treturn res\n}\n\n\n"
+    },
+    "30": {
+        "prompt": "\n// Return only positive numbers in the list.\n// >>> GetPositive([-1, 2, -4, 5, 6])\n// [2, 5, 6]\n// >>> GetPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n// [5, 3, 2, 3, 9, 123, 1]\nfunc GetPositive(l []int) []int {\n",
+        "question": "Return only positive numbers in the list.",
+        "declaration": "\nfunc GetPositive(l []int) []int {\n",
+        "canonical_solution": "    res := make([]int, 0)\n    for _, x := range l {\n        if x > 0 {\n            res = append(res, x)\n        }\n    }\n    return res\n}\n\n\n"
+    },
+    "31": {
+        "prompt": "\n// Return true if a given number is prime, and false otherwise.\n// >>> IsPrime(6)\n// false\n// >>> IsPrime(101)\n// true\n// >>> IsPrime(11)\n// true\n// >>> IsPrime(13441)\n// true\n// >>> IsPrime(61)\n// true\n// >>> IsPrime(4)\n// false\n// >>> IsPrime(1)\n// false\nfunc IsPrime(n int) bool {\n",
+        "question": "Return true if a given number is prime, and false otherwise.",
+        "declaration": "\nfunc IsPrime(n int) bool {\n",
+        "canonical_solution": "    if n <= 1 {\n\t\treturn false\n\t}\n\tif n == 2 {\n\t\treturn true\n\t}\n\tif n%2 == 0 {\n\t\treturn false\n\t}\n\tfor i := 3; i*i <= n; i += 2 {\n\t\tif n%i == 0 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n\n"
+    },
+    "32": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Evaluates polynomial with coefficients xs at point x.\n// return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n\nfunc Poly(xs []int, x float64) float64{\n    sum := 0.0\n    for i, coeff := range xs {\n        sum += float64(coeff) * math.Pow(x,float64(i))\n    }\n    return sum\n}\n// xs are coefficients of a polynomial.\n// FindZero find x such that Poly(x) = 0.\n// FindZero returns only only zero point, even if there are many.\n// Moreover, FindZero only takes list xs having even number of coefficients\n// and largest non zero coefficient as it guarantees\n// a solution.\n// >>> round(FindZero([1, 2]), 2) # f(x) = 1 + 2x\n// -0.5\n// >>> round(FindZero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3\n// 1.0\nfunc FindZero(xs []int) float64 {\n",
+        "question": "xs are coefficients of a polynomial. find_zero find x such that poly(x) = 0. find_zero returns only only zero point, even if there are many. Moreover, find_zero only takes list xs having even number of coefficients and largest non zero coefficient as it guarantees a solution.",
+        "declaration": "\nfunc FindZero(xs []int) float64 {\n",
+        "canonical_solution": "    begin := -1.0\n\tend := 1.0\n\tfor Poly(xs, begin)*Poly(xs, end) > 0 {\n\t\tbegin *= 2\n\t\tend *= 2\n\t}\n\tfor end-begin > 1e-10 {\n\t\tcenter := (begin + end) / 2\n\t\tif Poly(xs, center)*Poly(xs, begin) > 0 {\n\t\t\tbegin = center\n\t\t} else {\n\t\t\tend = center\n\t\t}\n\t}\n\treturn begin\n}\n\n"
+    },
+    "33": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// This function takes a list l and returns a list l' such that\n// l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal\n// to the values of the corresponding indicies of l, but sorted.\n// >>> SortThird([1, 2, 3])\n// [1, 2, 3]\n// >>> SortThird([5, 6, 3, 4, 8, 9, 2])\n// [2, 6, 3, 4, 8, 9, 5]\nfunc SortThird(l []int) []int {\n",
+        "question": "This function takes a list l and returns a list l' such that l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal to the values of the corresponding indicies of l, but sorted.",
+        "declaration": "\nfunc SortThird(l []int) []int {\n",
+        "canonical_solution": "    temp := make([]int, 0)\n\tfor i := 0; i < len(l); i = i + 3 {\n\t\ttemp = append(temp, l[i])\n\t}\n\tsort.Ints(temp)\n\tj := 0\n\tfor i := 0; i < len(l); i = i + 3 {\n\t\tl[i] = temp[j]\n\t\tj++\n\t}\n\treturn l\n}\n\n"
+    },
+    "34": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Return sorted Unique elements in a list\n// >>> Unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n// [0, 2, 3, 5, 9, 123]\nfunc Unique(l []int) []int {\n",
+        "question": "Return sorted unique elements in a list",
+        "declaration": "\nfunc Unique(l []int) []int {\n",
+        "canonical_solution": "    set := make(map[int]interface{})\n\tfor _, i := range l {\n\t\tset[i]=nil\n\t}\n\tl = make([]int,0)\n\tfor i, _ := range set {\n\t\tl = append(l, i)\n\t}\n\tsort.Ints(l)\n\treturn l\n}\n\n"
+    },
+    "35": {
+        "prompt": "\n// Return maximum element in the list.\n// >>> MaxElement([1, 2, 3])\n// 3\n// >>> MaxElement([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n// 123\nfunc MaxElement(l []int) int {\n",
+        "question": "Return maximum element in the list.",
+        "declaration": "\nfunc MaxElement(l []int) int {\n",
+        "canonical_solution": "    max := l[0]\n\tfor _, x := range l {\n\t\tif x > max {\n\t\t\tmax = x\n\t\t}\n\t}\n\treturn max\n}\n\n"
+    },
+    "36": {
+        "prompt": "import (\n\t\"strconv\"\n\t\"strings\"\n)\n\n// Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.\n// >>> FizzBuzz(50)\n// 0\n// >>> FizzBuzz(78)\n// 2\n// >>> FizzBuzz(79)\n// 3\nfunc FizzBuzz(n int) int {\n",
+        "question": "Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.",
+        "declaration": "\nfunc FizzBuzz(n int) int {\n",
+        "canonical_solution": "    ns := make([]int, 0)\n\tfor i := 0; i < n; i++ {\n\t\tif i%11 == 0 || i%13 == 0 {\n\t\t\tns = append(ns, i)\n\t\t}\n\t}\n\ttemp := make([]string, 0)\n\tfor _, i := range ns {\n\t\ttemp = append(temp, strconv.Itoa(i))\n\t}\n\tjoin := strings.Join(temp, \"\")\n\tans := 0\n\tfor _, c := range join {\n\t\tif c == '7' {\n\t\t\tans++\n\t\t}\n\t}\n\treturn ans\n}\n\n"
+    },
+    "37": {
+        "prompt": "import (\n\t\"sort\"\n)\n\n// This function takes a list l and returns a list l' such that\n// l' is identical to l in the odd indicies, while its values at the even indicies are equal\n// to the values of the even indicies of l, but sorted.\n// >>> SortEven([1, 2, 3])\n// [1, 2, 3]\n// >>> SortEven([5, 6, 3, 4])\n// [3, 6, 5, 4]\nfunc SortEven(l []int) []int {\n",
+        "question": "This function takes a list l and returns a list l' such that l' is identical to l in the odd indicies, while its values at the even indicies are equal to the values of the even indicies of l, but sorted.",
+        "declaration": "\nfunc SortEven(l []int) []int {\n",
+        "canonical_solution": "    evens := make([]int, 0)\n\tfor i := 0; i < len(l); i += 2 {\n\t\tevens = append(evens, l[i])\n\t}\n\tsort.Ints(evens)\n\tj := 0\n\tfor i := 0; i < len(l); i += 2 {\n\t\tl[i] = evens[j]\n\t\tj++\n\t}\n\treturn l\n}\n\n"
+    },
+    "38": {
+        "prompt": "import (\n    \"math\"\n    \"strings\"\n    \"time\"\n)\n\n// returns encoded string by cycling groups of three characters.\nfunc EncodeCyclic(s string) string {\n    groups := make([]string, 0)\n    for i := 0; i < ((len(s) + 2) / 3); i++ {\n        groups = append(groups, s[3*i:int(math.Min(float64(3*i+3), float64(len(s))))])\n    }\n    newGroups := make([]string, 0)\n    for _, group := range groups {\n        runes := []rune(group)\n        if len(group) == 3 {\n            newGroups = append(newGroups, string(append(runes[1:], runes[0])))\n        } else {\n            newGroups = append(newGroups, group)\n        }\n    }\n    return strings.Join(newGroups, \"\")\n}\n\n// takes as input string encoded with EncodeCyclic function. Returns decoded string.\nfunc DecodeCyclic(s string) string {\n",
+        "question": "takes as input string encoded with encode_cyclic function. Returns decoded string.",
+        "declaration": "\nfunc DecodeCyclic(s string) string {\n",
+        "canonical_solution": "    return EncodeCyclic(EncodeCyclic(s))\n}\n\n"
+    },
+    "39": {
+        "prompt": "import (\n\t\"math\"\n)\n\n// PrimeFib returns n-th number that is a Fibonacci number and it's also prime.\n// >>> PrimeFib(1)\n// 2\n// >>> PrimeFib(2)\n// 3\n// >>> PrimeFib(3)\n// 5\n// >>> PrimeFib(4)\n// 13\n// >>> PrimeFib(5)\n// 89\nfunc PrimeFib(n int) int {\n",
+        "question": "prime_fib returns n-th number that is a Fibonacci number and it's also prime.",
+        "declaration": "\nfunc PrimeFib(n int) int {\n",
+        "canonical_solution": "    isPrime := func(p int) bool {\n\t\tif p < 2 {\n\t\t\treturn false\n\t\t}\n\t\tfor i := 2; i < int(math.Min(math.Sqrt(float64(p))+1, float64(p-1))); i++ {\n\t\t\tif p%i == 0 {\n\t\t\t\treturn false\n\t\t\t}\n\t\t}\n\t\treturn true\n\t}\n\tf := []int{0, 1}\n\tfor {\n\t\tf = append(f, f[len(f)-1]+f[len(f)-2])\n\t\tif isPrime(f[len(f)-1]) {\n\t\t\tn -= 1\n\t\t}\n\t\tif n == 0 {\n\t\t\treturn f[len(f)-1]\n\t\t}\n\t}\n}\n\n"
+    },
+    "40": {
+        "prompt": "\n// TriplesSumToZero takes a list of integers as an input.\n// it returns true if there are three distinct elements in the list that\n// sum to zero, and false otherwise.\n// \n// >>> TriplesSumToZero([1, 3, 5, 0])\n// false\n// >>> TriplesSumToZero([1, 3, -2, 1])\n// true\n// >>> TriplesSumToZero([1, 2, 3, 7])\n// false\n// >>> TriplesSumToZero([2, 4, -5, 3, 9, 7])\n// true\n// >>> TriplesSumToZero([1])\n// false\nfunc TriplesSumToZero(l []int) bool {\n",
+        "question": "triples_sum_to_zero takes a list of integers as an input. it returns True if there are three distinct elements in the list that sum to zero, and False otherwise.",
+        "declaration": "\nfunc TriplesSumToZero(l []int) bool {\n",
+        "canonical_solution": "    for i := 0; i < len(l) - 2; i++ {\n\t\tfor j := i + 1; j < len(l) - 1; j++ {\n\t\t\tfor k := j + 1; k < len(l); k++ {\n\t\t\t\tif l[i] + l[j] + l[k] == 0 {\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}\n\n"
+    },
+    "41": {
+        "prompt": "\n// Imagine a road that's a perfectly straight infinitely long line.\n// n cars are driving left to right;  simultaneously, a different set of n cars\n// are driving right to left.   The two sets of cars start out being very far from\n// each other.  All cars move in the same speed.  Two cars are said to collide\n// when a car that's moving left to right hits a car that's moving right to left.\n// However, the cars are infinitely sturdy and strong; as a result, they continue moving\n// in their trajectory as if they did not collide.\n// \n// This function outputs the number of such collisions.\nfunc CarRaceCollision(n int) int {\n",
+        "question": "Imagine a road that's a perfectly straight infinitely long line. n cars are driving left to right; simultaneously, a different set of n cars are driving right to left. The two sets of cars start out being very far from each other. All cars move in the same speed. Two cars are said to collide when a car that's moving left to right hits a car that's moving right to left. However, the cars are infinitely sturdy and strong; as a result, they continue moving in their trajectory as if they did not collide. This function outputs the number of such collisions.",
+        "declaration": "\nfunc CarRaceCollision(n int) int {\n",
+        "canonical_solution": "\treturn n * n\n}\n\n"
+    },
+    "42": {
+        "prompt": "\n// Return list with elements incremented by 1.\n// >>> IncrList([1, 2, 3])\n// [2, 3, 4]\n// >>> IncrList([5, 3, 5, 2, 3, 3, 9, 0, 123])\n// [6, 4, 6, 3, 4, 4, 10, 1, 124]\nfunc IncrList(l []int) []int {\n",
+        "question": "Return list with elements incremented by 1.",
+        "declaration": "\nfunc IncrList(l []int) []int {\n",
+        "canonical_solution": "    n := len(l)\n\tfor i := 0; i < n; i++ {\n\t\tl[i]++\n\t}\n\treturn l\n}\n\n"
+    },
+    "43": {
+        "prompt": "\n// PairsSumToZero takes a list of integers as an input.\n// it returns true if there are two distinct elements in the list that\n// sum to zero, and false otherwise.\n// >>> PairsSumToZero([1, 3, 5, 0])\n// false\n// >>> PairsSumToZero([1, 3, -2, 1])\n// false\n// >>> PairsSumToZero([1, 2, 3, 7])\n// false\n// >>> PairsSumToZero([2, 4, -5, 3, 5, 7])\n// true\n// >>> PairsSumToZero([1])\n// false\nfunc PairsSumToZero(l []int) bool {\n",
+        "question": "pairs_sum_to_zero takes a list of integers as an input. it returns True if there are two distinct elements in the list that sum to zero, and False otherwise.",
+        "declaration": "\nfunc PairsSumToZero(l []int) bool {\n",
+        "canonical_solution": "    seen := map[int]bool{}\n\tfor i := 0; i < len(l); i++ {\n\t\tfor j := i + 1; j < len(l); j++ {\n\t\t\tif l[i] + l[j] == 0 {\n\t\t\t\tif _, ok := seen[l[i]]; !ok {\n\t\t\t\t\tseen[l[i]] = true\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t\tif _, ok := seen[l[j]]; !ok {\n\t\t\t\t\tseen[l[j]] = true\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}\n\n"
+    },
+    "44": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Change numerical base of input number x to base.\n// return string representation after the conversion.\n// base numbers are less than 10.\n// >>> ChangeBase(8, 3)\n// '22'\n// >>> ChangeBase(8, 2)\n// '1000'\n// >>> ChangeBase(7, 2)\n// '111'\nfunc ChangeBase(x int, base int) string {\n",
+        "question": "Change numerical base of input number x to base. return string representation after the conversion. base numbers are less than 10.",
+        "declaration": "\nfunc ChangeBase(x int, base int) string {\n",
+        "canonical_solution": "    if x >= base {\n        return ChangeBase(x/base, base) + ChangeBase(x%base, base)\n    }\n    return strconv.Itoa(x)\n}\n\n"
+    },
+    "45": {
+        "prompt": "\n// Given length of a side and high return area for a triangle.\n// >>> TriangleArea(5, 3)\n// 7.5\nfunc TriangleArea(a float64, h float64) float64 {\n",
+        "question": "Given length of a side and high return area for a triangle.",
+        "declaration": "\nfunc TriangleArea(a float64, h float64) float64 {\n",
+        "canonical_solution": "    return a * h / 2\n}\n\n"
+    },
+    "46": {
+        "prompt": "\n// The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n// Fib4(0) -> 0\n// Fib4(1) -> 0\n// Fib4(2) -> 2\n// Fib4(3) -> 0\n// Fib4(n) -> Fib4(n-1) + Fib4(n-2) + Fib4(n-3) + Fib4(n-4).\n// Please write a function to efficiently compute the n-th element of the Fib4 number sequence.  Do not use recursion.\n// >>> Fib4(5)\n// 4\n// >>> Fib4(6)\n// 8\n// >>> Fib4(7)\n// 14\nfunc Fib4(n int) int {\n",
+        "question": "The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows: fib4(0) -> 0 fib4(1) -> 0 fib4(2) -> 2 fib4(3) -> 0 fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4). Please write a function to efficiently compute the n-th element of the fib4 number sequence. Do not use recursion.",
+        "declaration": "\nfunc Fib4(n int) int {\n",
+        "canonical_solution": "    switch n {\n\tcase 0:\n\t\treturn 0\n\tcase 1:\n\t\treturn 0\n\tcase 2:\n\t\treturn 2\n\tcase 3:\n\t\treturn 0\n\tdefault:\n\t\treturn Fib4(n-1) + Fib4(n-2) + Fib4(n-3) + Fib4(n-4)\n\t}\n}\n\n"
+    },
+    "47": {
+        "prompt": "import (\n\t\"sort\"\n)\n\n// Return Median of elements in the list l.\n// >>> Median([3, 1, 2, 4, 5])\n// 3.0\n// >>> Median([-10, 4, 6, 1000, 10, 20])\n// 15.0\nfunc Median(l []int) float64 {\n",
+        "question": "Return median of elements in the list l.",
+        "declaration": "\nfunc Median(l []int) float64 {\n",
+        "canonical_solution": "    sort.Ints(l)\n\tif len(l)%2==1{\n\t\treturn float64(l[len(l)/2])\n\t}else{\n\t\treturn float64(l[len(l)/2-1]+l[len(l)/2])/2.0\n\t}\n}\n\n"
+    },
+    "48": {
+        "prompt": "\n// Checks if given string is a palindrome\n// >>> IsPalindrome('')\n// true\n// >>> IsPalindrome('aba')\n// true\n// >>> IsPalindrome('aaaaa')\n// true\n// >>> IsPalindrome('zbcd')\n// false\nfunc IsPalindrome(text string) bool {\n",
+        "question": "Checks if given string is a palindrome",
+        "declaration": "\nfunc IsPalindrome(text string) bool {\n",
+        "canonical_solution": "    runes := []rune(text)\n    result := make([]rune, 0)\n    for i := len(runes) - 1; i >= 0; i-- {\n        result = append(result, runes[i])\n    }\n    return text == string(result)\n}\n\n"
+    },
+    "49": {
+        "prompt": "\n// Return 2^n modulo p (be aware of numerics).\n// >>> Modp(3, 5)\n// 3\n// >>> Modp(1101, 101)\n// 2\n// >>> Modp(0, 101)\n// 1\n// >>> Modp(3, 11)\n// 8\n// >>> Modp(100, 101)\n// 1\nfunc Modp(n int,p int) int {\n",
+        "question": "Return 2^n modulo p (be aware of numerics).",
+        "declaration": "\nfunc Modp(n int,p int) int {\n",
+        "canonical_solution": "    ret := 1\n    for i:= 0; i < n; i++ {\n\t\tret = (2 * ret) % p\n\t}\n    return ret\n}\n\n"
+    },
+    "50": {
+        "prompt": "// returns encoded string by shifting every character by 5 in the alphabet.\nfunc EncodeShift(s string) string {\n    runes := []rune(s)\n    newRunes := make([]rune, 0)\n    for _, ch := range runes {\n        newRunes = append(newRunes, (ch+5-'a')%26+'a')\n    }\n    return string(runes)\n}\n\n// takes as input string encoded with EncodeShift function. Returns decoded string.\nfunc DecodeShift(s string) string {\n",
+        "question": "takes as input string encoded with encode_shift function. Returns decoded string.",
+        "declaration": "\nfunc DecodeShift(s string) string {\n",
+        "canonical_solution": "    runes := []rune(s)\n    newRunes := make([]rune, 0)\n    for _, ch := range runes {\n        newRunes = append(newRunes, (ch-5-'a')%26+'a')\n    }\n    return string(runes)\n}\n\n"
+    },
+    "51": {
+        "prompt": "import (\n    \"regexp\"\n)\n\n// RemoveVowels is a function that takes string and returns string without vowels.\n// >>> RemoveVowels('')\n// ''\n// >>> RemoveVowels(\"abcdef\\nghijklm\")\n// 'bcdf\\nghjklm'\n// >>> RemoveVowels('abcdef')\n// 'bcdf'\n// >>> RemoveVowels('aaaaa')\n// ''\n// >>> RemoveVowels('aaBAA')\n// 'B'\n// >>> RemoveVowels('zbcd')\n// 'zbcd'\nfunc RemoveVowels(text string) string {\n",
+        "question": "remove_vowels is a function that takes string and returns string without vowels.",
+        "declaration": "\nfunc RemoveVowels(text string) string {\n    ",
+        "canonical_solution": "    var re = regexp.MustCompile(\"[aeiouAEIOU]\")\n\ttext = re.ReplaceAllString(text, \"\")\n\treturn text\n}\n\n"
+    },
+    "52": {
+        "prompt": "\n// Return true if all numbers in the list l are below threshold t.\n// >>> BelowThreshold([1, 2, 4, 10], 100)\n// true\n// >>> BelowThreshold([1, 20, 4, 10], 5)\n// false\nfunc BelowThreshold(l []int,t int) bool {\n",
+        "question": "Return True if all numbers in the list l are below threshold t.",
+        "declaration": "\nfunc BelowThreshold(l []int,t int) bool {\n",
+        "canonical_solution": "    for _, n := range l {\n\t\tif n >= t {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n"
+    },
+    "53": {
+        "prompt": "\n// Add two numbers x and y\n// >>> Add(2, 3)\n// 5\n// >>> Add(5, 7)\n// 12\nfunc Add(x int, y int) int {\n",
+        "question": "Add two numbers x and y",
+        "declaration": "\nfunc Add(x int, y int) int {\n",
+        "canonical_solution": "    return x + y\n}\n\n"
+    },
+    "54": {
+        "prompt": "\n// Check if two words have the same characters.\n// >>> SameChars('eabcdzzzz', 'dddzzzzzzzddeddabc')\n// true\n// >>> SameChars('abcd', 'dddddddabc')\n// true\n// >>> SameChars('dddddddabc', 'abcd')\n// true\n// >>> SameChars('eabcd', 'dddddddabc')\n// false\n// >>> SameChars('abcd', 'dddddddabce')\n// false\n// >>> SameChars('eabcdzzzz', 'dddzzzzzzzddddabc')\n// false\nfunc SameChars(s0 string, s1 string) bool {\n",
+        "question": "Check if two words have the same characters.",
+        "declaration": "\nfunc SameChars(s0 string, s1 string) bool {\n",
+        "canonical_solution": "    set0 := make(map[int32]interface{})\n\tset1 := make(map[int32]interface{})\n\tfor _, i := range s0 {\n\t\tset0[i] = nil\n\t}\n\tfor _, i := range s1 {\n\t\tset1[i] = nil\n\t}\n\tfor i, _ := range set0 {\n\t\tif _,ok:=set1[i];!ok{\n\t\t\treturn false\n\t\t}\n\t}\n\tfor i, _ := range set1 {\n\t\tif _,ok:=set0[i];!ok{\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n"
+    },
+    "55": {
+        "prompt": "\n// Return n-th Fibonacci number.\n// >>> Fib(10)\n// 55\n// >>> Fib(1)\n// 1\n// >>> Fib(8)\n// 21\nfunc Fib(n int) int {\n",
+        "question": "Return n-th Fibonacci number.",
+        "declaration": "\nfunc Fib(n int) int {\n",
+        "canonical_solution": "    if n <= 1 {\n\t\treturn n\n\t}\n\treturn Fib(n-1) + Fib(n-2)\n}\n\n"
+    },
+    "56": {
+        "prompt": "\n// brackets is a string of \"<\" and \">\".\n// return true if every opening bracket has a corresponding closing bracket.\n// \n// >>> CorrectBracketing(\"<\")\n// false\n// >>> CorrectBracketing(\"<>\")\n// true\n// >>> CorrectBracketing(\"<<><>>\")\n// true\n// >>> CorrectBracketing(\"><<>\")\n// false\nfunc CorrectBracketing(brackets string) bool {\n",
+        "question": "brackets is a string of \"<\" and \">\". return True if every opening bracket has a corresponding closing bracket.",
+        "declaration": "\nfunc CorrectBracketing(brackets string) bool {\n",
+        "canonical_solution": "    l := len(brackets)\n\tcount := 0\n\tfor index := 0; index < l; index++ {\n\t\tif brackets[index] == '<' {\n\t\t\tcount++\n\t\t} else if brackets[index] == '>' {\n\t\t\tcount--\n\t\t}\n\t\tif count < 0 {\n\t\t\treturn false\n\t\t}\n\t}\n    if count == 0 {\n        return true\n    } else {\n        return false\n    }\n}\n\n"
+    },
+    "57": {
+        "prompt": "\n// Return true is list elements are Monotonically increasing or decreasing.\n// >>> Monotonic([1, 2, 4, 20])\n// true\n// >>> Monotonic([1, 20, 4, 10])\n// false\n// >>> Monotonic([4, 1, 0, -10])\n// true\nfunc Monotonic(l []int) bool {\n",
+        "question": "Return True is list elements are monotonically increasing or decreasing.",
+        "declaration": "\nfunc Monotonic(l []int) bool {\n",
+        "canonical_solution": "    flag := true\n\tif len(l) > 1 {\n\t\tfor i := 0; i < len(l)-1; i++ {\n\t\t\tif l[i] != l[i+1] {\n\t\t\t\tflag = l[i] > l[i+1]\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t} else {\n\t\treturn false\n\t}\n\tfor i := 0; i < len(l)-1; i++ {\n\t\tif flag != (l[i] >= l[i+1]) {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n"
+    },
+    "58": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Return sorted unique Common elements for two lists.\n// >>> Common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])\n// [1, 5, 653]\n// >>> Common([5, 3, 2, 8], [3, 2])\n// [2, 3]\nfunc Common(l1 []int,l2 []int) []int {\n",
+        "question": "Return sorted unique common elements for two lists.",
+        "declaration": "\nfunc Common(l1 []int,l2 []int) []int {\n",
+        "canonical_solution": "    m := make(map[int]bool)\n\tfor _, e1 := range l1 {\n\t\tif m[e1] {\n\t\t\tcontinue\n\t\t}\n\t\tfor _, e2 := range l2 {\n\t\t\tif e1 == e2 {\n\t\t\t\tm[e1] = true\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t}\n\tres := make([]int, 0, len(m))\n\tfor k, _ := range m {\n\t\tres = append(res, k)\n\t}\n\tsort.Ints(res)\n\treturn res\n}\n\n"
+    },
+    "59": {
+        "prompt": "\n// Return the largest prime factor of n. Assume n > 1 and is not a prime.\n// >>> LargestPrimeFactor(13195)\n// 29\n// >>> LargestPrimeFactor(2048)\n// 2\nfunc LargestPrimeFactor(n int) int {\n",
+        "question": "Return the largest prime factor of n. Assume n > 1 and is not a prime.",
+        "declaration": "\nfunc LargestPrimeFactor(n int) int {\n",
+        "canonical_solution": "    isPrime := func(n int) bool {\n        for i := 2; i < int(math.Pow(float64(n), 0.5)+1); i++ {\n            if n%i == 0 {\n                return false\n            }\n        }\n        return true\n    }\n\n    largest := 1\n    for j := 2; j < n + 1; j++ {\n\t\tif n % j == 0 && isPrime(j) {\n\t\t\tif j > largest {\n\t\t\t\tlargest = j\n\t\t\t}\n\t\t}\n\t}\n    return largest\n}\n\n"
+    },
+    "60": {
+        "prompt": "\n// SumToN is a function that sums numbers from 1 to n.\n// >>> SumToN(30)\n// 465\n// >>> SumToN(100)\n// 5050\n// >>> SumToN(5)\n// 15\n// >>> SumToN(10)\n// 55\n// >>> SumToN(1)\n// 1\nfunc SumToN(n int) int {\n",
+        "question": "sum_to_n is a function that sums numbers from 1 to n.",
+        "declaration": "\nfunc SumToN(n int) int {\n",
+        "canonical_solution": "    if n <= 0 {\n\t\treturn 0\n\t} else {\n\t\treturn n + SumToN(n - 1)\n\t}\n}\n\n"
+    },
+    "61": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// brackets is a string of \"(\" and \")\".\n// return true if every opening bracket has a corresponding closing bracket.\n// \n// >>> CorrectBracketing(\"(\")\n// false\n// >>> CorrectBracketing(\"()\")\n// true\n// >>> CorrectBracketing(\"(()())\")\n// true\n// >>> CorrectBracketing(\")(()\")\n// false\nfunc CorrectBracketing(brackets string) bool {\n",
+        "question": "brackets is a string of \"(\" and \")\". return True if every opening bracket has a corresponding closing bracket.",
+        "declaration": "\nfunc CorrectBracketing(brackets string) bool {\n",
+        "canonical_solution": "    brackets = strings.Replace(brackets, \"(\", \" ( \", -1)\n\tbrackets = strings.Replace(brackets, \")\", \") \", -1)\n\topen := 0\n\tfor _, b := range brackets {\n\t\tif b == '(' {\n\t\t\topen++\n\t\t} else if b == ')' {\n\t\t\topen--\n\t\t}\n\t\tif open < 0 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn open == 0\n}\n\n"
+    },
+    "62": {
+        "prompt": "\n// xs represent coefficients of a polynomial.\n// xs[0] + xs[1] * x + xs[2] * x^2 + ....\n// Return Derivative of this polynomial in the same form.\n// >>> Derivative([3, 1, 2, 4, 5])\n// [1, 4, 12, 20]\n// >>> Derivative([1, 2, 3])\n// [2, 6]\nfunc Derivative(xs []int) []int {\n",
+        "question": "xs represent coefficients of a polynomial. xs[0] + xs[1] * x + xs[2] * x^2 + .... Return derivative of this polynomial in the same form.",
+        "declaration": "\nfunc Derivative(xs []int) []int {\n",
+        "canonical_solution": "    l := len(xs)\n\ty := make([]int, l - 1)\n\tfor i := 0; i < l - 1; i++ {\n\t\ty[i] = xs[i + 1] * (i + 1)\n\t}\n\treturn y\n}\n\n"
+    },
+    "63": {
+        "prompt": "\n// The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n// Fibfib(0) == 0\n// Fibfib(1) == 0\n// Fibfib(2) == 1\n// Fibfib(n) == Fibfib(n-1) + Fibfib(n-2) + Fibfib(n-3).\n// Please write a function to efficiently compute the n-th element of the Fibfib number sequence.\n// >>> Fibfib(1)\n// 0\n// >>> Fibfib(5)\n// 4\n// >>> Fibfib(8)\n// 24\nfunc Fibfib(n int) int {\n",
+        "question": "The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows: fibfib(0) == 0 fibfib(1) == 0 fibfib(2) == 1 fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3). Please write a function to efficiently compute the n-th element of the fibfib number sequence.",
+        "declaration": "\nfunc Fibfib(n int) int {\n",
+        "canonical_solution": "    if n <= 0 {\n\t\treturn 0\n\t}\n    switch n {\n\tcase 0:\n\t\treturn 0\n\tcase 1:\n\t\treturn 0\n\tcase 2:\n\t\treturn 1\n\tdefault:\n\t\treturn Fibfib(n-1) + Fibfib(n-2) + Fibfib(n-3)\n\t}\n}\n\n"
+    },
+    "64": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Write a function VowelsCount which takes a string representing\n// a word as input and returns the number of vowels in the string.\n// Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a\n// vowel, but only when it is at the end of the given word.\n// \n// Example:\n// >>> VowelsCount(\"abcde\")\n// 2\n// >>> VowelsCount(\"ACEDY\")\n// 3\nfunc VowelsCount(s string) int {\n",
+        "question": "Write a function vowels_count which takes a string representing a word as input and returns the number of vowels in the string. Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a vowel, but only when it is at the end of the given word.",
+        "declaration": "\nfunc VowelsCount(s string) int {\n",
+        "canonical_solution": "    s = strings.ToLower(s)\n\tvowels := map[int32]interface{}{'a': nil, 'e': nil, 'i': nil, 'o': nil, 'u': nil}\n\tcount := 0\n\tfor _, i := range s {\n\t\tif _, ok := vowels[i]; ok {\n\t\t\tcount++\n\t\t}\n\t}\n\tif (s[len(s)-1]) == 'y' {\n\t\tcount++\n\t}\n\treturn count\n}\n\n"
+    },
+    "65": {
+        "prompt": "\n// Circular shift the digits of the integer x, shift the digits right by shift\n// and return the result as a string.\n// If shift > number of digits, return digits reversed.\n// >>> CircularShift(12, 1)\n// \"21\"\n// >>> CircularShift(12, 2)\n// \"12\"\nfunc CircularShift(x int,shift int) string {\n",
+        "question": "Circular shift the digits of the integer x, shift the digits right by shift and return the result as a string. If shift > number of digits, return digits reversed.",
+        "declaration": "\nfunc CircularShift(x int, shift int) string {\n",
+        "canonical_solution": "    s := strconv.Itoa(x)\n\tif shift > len(s) {\n\t\trunes := make([]rune, 0)\n\t\tfor i := len(s)-1; i >= 0; i-- {\n\t\t\trunes = append(runes, rune(s[i]))\n\t\t}\n\t\treturn string(runes)\n\t}else{\n\t\treturn s[len(s)-shift:]+s[:len(s)-shift]\n\t}\n}\n\n"
+    },
+    "66": {
+        "prompt": "\n// Task\n// Write a function that takes a string as input and returns the sum of the upper characters only'\n// ASCII codes.\n// \n// Examples:\n// Digitsum(\"\") => 0\n// Digitsum(\"abAB\") => 131\n// Digitsum(\"abcCd\") => 67\n// Digitsum(\"helloE\") => 69\n// Digitsum(\"woArBld\") => 131\n// Digitsum(\"aAaaaXa\") => 153\nfunc Digitsum(x string) int {\n",
+        "question": "Task Write a function that takes a string as input and returns the sum of the upper characters only' ASCII codes.",
+        "declaration": "\nfunc Digitsum(x string) int {\n",
+        "canonical_solution": "    if len(x) == 0 {\n\t\treturn 0\n\t}\n\tresult := 0\n\tfor _, i := range x {\n\t\tif 'A' <= i && i <= 'Z' {\n\t\t\tresult += int(i)\n\t\t}\n\t}\n\treturn result\n}\n\n"
+    },
+    "67": {
+        "prompt": "import (\n\t\"strconv\"\n\t\"strings\"\n)\n\n// In this task, you will be given a string that represents a number of apples and oranges\n// that are distributed in a basket of fruit this basket contains\n// apples, oranges, and mango fruits. Given the string that represents the total number of\n// the oranges and apples and an integer that represent the total number of the fruits\n// in the basket return the number of the mango fruits in the basket.\n// for examble:\n// FruitDistribution(\"5 apples and 6 oranges\", 19) ->19 - 5 - 6 = 8\n// FruitDistribution(\"0 apples and 1 oranges\",3) -> 3 - 0 - 1 = 2\n// FruitDistribution(\"2 apples and 3 oranges\", 100) -> 100 - 2 - 3 = 95\n// FruitDistribution(\"100 apples and 1 oranges\",120) -> 120 - 100 - 1 = 19\nfunc FruitDistribution(s string,n int) int {\n",
+        "question": "In this task, you will be given a string that represents a number of apples and oranges that are distributed in a basket of fruit this basket contains apples, oranges, and mango fruits. Given the string that represents the total number of the oranges and apples and an integer that represent the total number of the fruits in the basket return the number of the mango fruits in the basket.",
+        "declaration": "\nfunc FruitDistribution(s string,n int) int {\n",
+        "canonical_solution": "    split := strings.Split(s, \" \")\n\tfor _, i := range split {\n\t\tatoi, err := strconv.Atoi(i)\n\t\tif err != nil {\n\t\t\tcontinue\n\t\t}\n\t\tn = n - atoi\n\t}\n\treturn n\n}\n\n"
+    },
+    "68": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given an array representing a branch of a tree that has non-negative integer nodes\n// your task is to Pluck one of the nodes and return it.\n// The Plucked node should be the node with the smallest even value.\n// If multiple nodes with the same smallest even value are found return the node that has smallest index.\n// \n// The Plucked node should be returned in a list, [ smalest_value, its index ],\n// If there are no even values or the given array is empty, return [].\n// \n// Example 1:\n// Input: [4,2,3]\n// Output: [2, 1]\n// Explanation: 2 has the smallest even value, and 2 has the smallest index.\n// \n// Example 2:\n// Input: [1,2,3]\n// Output: [2, 1]\n// Explanation: 2 has the smallest even value, and 2 has the smallest index.\n// \n// Example 3:\n// Input: []\n// Output: []\n// \n// Example 4:\n// Input: [5, 0, 3, 0, 4, 2]\n// Output: [0, 1]\n// Explanation: 0 is the smallest value, but  there are two zeros,\n// so we will choose the first zero, which has the smallest index.\n// \n// Constraints:\n// * 1 <= nodes.length <= 10000\n// * 0 <= node.value\nfunc Pluck(arr []int) []int {\n",
+        "question": "Given an array representing a branch of a tree that has non-negative integer nodes your task is to pluck one of the nodes and return it. The plucked node should be the node with the smallest even value. If multiple nodes with the same smallest even value are found return the node that has smallest index. The plucked node should be returned in a list, [ smalest_value, its index ], If there are no even values or the given array is empty, return []. Constraints: * 1 <= nodes.length <= 10000 * 0 <= node.value",
+        "declaration": "\nfunc Pluck(arr []int) []int {\n",
+        "canonical_solution": "    result := make([]int, 0)\n\tif len(arr) == 0 {\n\t\treturn result\n\t}\n\tevens := make([]int, 0)\n\tmin := math.MaxInt64\n\tminIndex := 0\n\tfor i, x := range arr {\n\t\tif x%2 == 0 {\n\t\t\tevens = append(evens, x)\n\t\t\tif x < min {\n\t\t\t\tmin = x\n\t\t\t\tminIndex = i\n\t\t\t}\n\t\t}\n\t}\n\tif len(evens) == 0 {\n\t\treturn result\n\t}\n\tresult = []int{min, minIndex}\n\treturn result\n}\n\n"
+    },
+    "69": {
+        "prompt": "\n// You are given a non-empty list of positive integers. Return the greatest integer that is greater than\n// zero, and has a frequency greater than or equal to the value of the integer itself.\n// The frequency of an integer is the number of times it appears in the list.\n// If no such a value exist, return -1.\n// Examples:\n// Search([4, 1, 2, 2, 3, 1]) == 2\n// Search([1, 2, 2, 3, 3, 3, 4, 4, 4]) == 3\n// Search([5, 5, 4, 4, 4]) == -1\nfunc Search(lst []int) int {\n",
+        "question": "You are given a non-empty list of positive integers. Return the greatest integer that is greater than zero, and has a frequency greater than or equal to the value of the integer itself. The frequency of an integer is the number of times it appears in the list. If no such a value exist, return -1.",
+        "declaration": "\nfunc Search(lst []int) int {\n",
+        "canonical_solution": "    countMap := make(map[int]int)\n\tfor _, i := range lst {\n\t\tif count, ok := countMap[i]; ok {\n\t\t\tcountMap[i] = count + 1\n\t\t} else {\n\t\t\tcountMap[i] = 1\n\t\t}\n\t}\n\tmax := -1\n\tfor i, count := range countMap {\n\t\tif count >= i && count > max {\n\t\t\tmax = i\n\t\t}\n\t}\n\treturn max\n}\n\n"
+    },
+    "70": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Given list of integers, return list in strange order.\n// Strange sorting, is when you start with the minimum value,\n// then maximum of the remaining integers, then minimum and so on.\n// \n// Examples:\n// StrangeSortList([1, 2, 3, 4]) == [1, 4, 2, 3]\n// StrangeSortList([5, 5, 5, 5]) == [5, 5, 5, 5]\n// StrangeSortList([]) == []\nfunc StrangeSortList(lst []int) []int {\n",
+        "question": "Given list of integers, return list in strange order. Strange sorting, is when you start with the minimum value, then maximum of the remaining integers, then minimum and so on.",
+        "declaration": "\nfunc StrangeSortList(lst []int) []int {\n",
+        "canonical_solution": "    sort.Ints(lst)\n\tresult := make([]int, 0)\n\tfor i := 0; i < len(lst)/2; i++ {\n\t\tresult = append(result, lst[i])\n\t\tresult = append(result, lst[len(lst)-i-1])\n\t}\n\tif len(lst)%2 != 0 {\n\t\tresult = append(result, lst[len(lst)/2])\n\t}\n\treturn result\n}\n\n"
+    },
+    "71": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given the lengths of the three sides of a triangle. Return the area of\n// the triangle rounded to 2 decimal points if the three sides form a valid triangle.\n// Otherwise return -1\n// Three sides make a valid triangle when the sum of any two sides is greater\n// than the third side.\n// Example:\n// TriangleArea(3, 4, 5) == 6.00\n// TriangleArea(1, 2, 10) == -1\nfunc TriangleArea(a float64, b float64, c float64) interface{} {\n",
+        "question": "Given the lengths of the three sides of a triangle. Return the area of the triangle rounded to 2 decimal points if the three sides form a valid triangle. Otherwise return -1 Three sides make a valid triangle when the sum of any two sides is greater than the third side.",
+        "declaration": "\nfunc TriangleArea(a float64, b float64, c float64) interface{} {\n",
+        "canonical_solution": "    if a+b <= c || a+c <= b || b+c <= a {\n\t\treturn -1\n\t}\n\ts := (a + b + c) / 2\n\tarea := math.Pow(s * (s - a) * (s - b) * (s - c), 0.5)\n\tarea = math.Round(area*100)/100\n\treturn area\n}\n\n"
+    },
+    "72": {
+        "prompt": "\n// Write a function that returns true if the object q will fly, and false otherwise.\n// The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.\n// \n// Example:\n// WillItFly([1, 2], 5) \u279e false\n// 1+2 is less than the maximum possible weight, but it's unbalanced.\n// \n// WillItFly([3, 2, 3], 1) \u279e false\n// it's balanced, but 3+2+3 is more than the maximum possible weight.\n// \n// WillItFly([3, 2, 3], 9) \u279e true\n// 3+2+3 is less than the maximum possible weight, and it's balanced.\n// \n// WillItFly([3], 5) \u279e true\n// 3 is less than the maximum possible weight, and it's balanced.\nfunc WillItFly(q []int,w int) bool {\n",
+        "question": "Write a function that returns True if the object q will fly, and False otherwise. The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.",
+        "declaration": "\nfunc WillItFly(q []int,w int) bool {\n",
+        "canonical_solution": "    sum := 0\n\tfor i := 0; i < len(q); i++ {\n\t\tsum += q[i]\n\t}\n\tif sum <= w && isPalindrome(q) {\n\t\treturn true\n\t}\n\treturn false\n}\n\nfunc isPalindrome(arr []int) bool {\n\tfor i := 0; i < (len(arr) / 2); i++ {\n\t\tif arr[i] != arr[len(arr) - i - 1] {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n"
+    },
+    "73": {
+        "prompt": "\n// Given an array arr of integers, find the minimum number of elements that\n// need to be changed to make the array palindromic. A palindromic array is an array that\n// is read the same backwards and forwards. In one change, you can change one element to any other element.\n// \n// For example:\n// SmallestChange([1,2,3,5,4,7,9,6]) == 4\n// SmallestChange([1, 2, 3, 4, 3, 2, 2]) == 1\n// SmallestChange([1, 2, 3, 2, 1]) == 0\nfunc SmallestChange(arr []int) int {\n",
+        "question": "Given an array arr of integers, find the minimum number of elements that need to be changed to make the array palindromic. A palindromic array is an array that is read the same backwards and forwards. In one change, you can change one element to any other element.",
+        "declaration": "\nfunc SmallestChange(arr []int) int {\n",
+        "canonical_solution": "    count := 0\n\tfor i := 0; i < len(arr) - 1; i++ {\n        a := arr[len(arr) - i - 1]\n\t\tif arr[i] != a {\n\t\t\tarr[i] = a\n            count++\n\t\t}\n\t}\n\treturn count\n}\n\n"
+    },
+    "74": {
+        "prompt": "\n// Write a function that accepts two lists of strings and returns the list that has\n// total number of chars in the all strings of the list less than the other list.\n// \n// if the two lists have the same number of chars, return the first list.\n// \n// Examples\n// TotalMatch([], []) \u279e []\n// TotalMatch(['hi', 'admin'], ['hI', 'Hi']) \u279e ['hI', 'Hi']\n// TotalMatch(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) \u279e ['hi', 'admin']\n// TotalMatch(['hi', 'admin'], ['hI', 'hi', 'hi']) \u279e ['hI', 'hi', 'hi']\n// TotalMatch(['4'], ['1', '2', '3', '4', '5']) \u279e ['4']\nfunc TotalMatch(lst1 []string,lst2 []string) []string {\n",
+        "question": "Write a function that accepts two lists of strings and returns the list that has total number of chars in the all strings of the list less than the other list. if the two lists have the same number of chars, return the first list.",
+        "declaration": "\nfunc TotalMatch(lst1 []string,lst2 []string) []string {\n",
+        "canonical_solution": "    var numchar1 = 0\n\tvar numchar2 = 0\n\tfor _, item := range lst1 {\n\t\tnumchar1 += len(item)\n\t}\n\tfor _, item := range lst2 {\n\t\tnumchar2 += len(item)\n\t}\n\tif numchar1 <= numchar2 {\n\t\treturn lst1\n\t} else {\n\t\treturn lst2\n\t}\n}\n\n"
+    },
+    "75": {
+        "prompt": "\n// Write a function that returns true if the given number is the multiplication of 3 prime numbers\n// and false otherwise.\n// Knowing that (a) is less then 100.\n// Example:\n// IsMultiplyPrime(30) == true\n// 30 = 2 * 3 * 5\nfunc IsMultiplyPrime(a int) bool {\n",
+        "question": "Write a function that returns true if the given number is the multiplication of 3 prime numbers and false otherwise. Knowing that (a) is less then 100.",
+        "declaration": "\nfunc IsMultiplyPrime(a int) bool {\n",
+        "canonical_solution": "    isPrime := func(n int) bool {\n        for i := 2; i < int(math.Pow(float64(n), 0.5)+1); i++ {\n            if n%i == 0 {\n                return false\n            }\n        }\n        return true\n    }\n    for i := 2; i < 101; i++ {\n\t\tif !isPrime(i) {\n\t\t\tcontinue\n\t\t}\n\t\tfor j := 2; j < 101; j++ {\n\t\t\tif !isPrime(j) {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tfor k := 2; k < 101; k++ {\n\t\t\t\tif !isPrime(k) {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tif i*j*k == a {\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}\n\n"
+    },
+    "76": {
+        "prompt": "\n// Your task is to write a function that returns true if a number x is a simple\n// power of n and false in other cases.\n// x is a simple power of n if n**int=x\n// For example:\n// IsSimplePower(1, 4) => true\n// IsSimplePower(2, 2) => true\n// IsSimplePower(8, 2) => true\n// IsSimplePower(3, 2) => false\n// IsSimplePower(3, 1) => false\n// IsSimplePower(5, 3) => false\nfunc IsSimplePower(x int,n int) bool {\n",
+        "question": "Your task is to write a function that returns true if a number x is a simple power of n and false in other cases. x is a simple power of n if n**int=x",
+        "declaration": "\nfunc IsSimplePower(x int,n int) bool {\n",
+        "canonical_solution": "    if x == 1 {\n\t\treturn true\n\t}\n\tif n==1 {\n\t\treturn false\n\t}\n\tif x % n != 0 {\n\t\treturn false\n\t}\n\treturn IsSimplePower(x / n, n)\n}\n\n"
+    },
+    "77": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Write a function that takes an integer a and returns true\n// if this ingeger is a cube of some integer number.\n// Note: you may assume the input is always valid.\n// Examples:\n// Iscube(1) ==> true\n// Iscube(2) ==> false\n// Iscube(-1) ==> true\n// Iscube(64) ==> true\n// Iscube(0) ==> true\n// Iscube(180) ==> false\nfunc Iscube(a int) bool {\n",
+        "question": "Write a function that takes an integer a and returns True if this ingeger is a cube of some integer number. Note: you may assume the input is always valid.",
+        "declaration": "\nfunc Iscube(a int) bool {\n",
+        "canonical_solution": "    abs := math.Abs(float64(a))\n\treturn int(math.Pow(math.Round(math.Pow(abs, 1.0/3.0)), 3.0)) == int(abs)\n}\n\n"
+    },
+    "78": {
+        "prompt": "\n// You have been tasked to write a function that receives\n// a hexadecimal number as a string and counts the number of hexadecimal\n// digits that are primes (prime number, or a prime, is a natural number\n// greater than 1 that is not a product of two smaller natural numbers).\n// Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.\n// Prime numbers are 2, 3, 5, 7, 11, 13, 17,...\n// So you have to determine a number of the following digits: 2, 3, 5, 7,\n// B (=decimal 11), D (=decimal 13).\n// Note: you may assume the input is always correct or empty string,\n// and symbols A,B,C,D,E,F are always uppercase.\n// Examples:\n// For num = \"AB\" the output should be 1.\n// For num = \"1077E\" the output should be 2.\n// For num = \"ABED1A33\" the output should be 4.\n// For num = \"123456789ABCDEF0\" the output should be 6.\n// For num = \"2020\" the output should be 2.\nfunc HexKey(num string) int {\n",
+        "question": "You have been tasked to write a function that receives a hexadecimal number as a string and counts the number of hexadecimal digits that are primes (prime number, or a prime, is a natural number greater than 1 that is not a product of two smaller natural numbers). Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F. Prime numbers are 2, 3, 5, 7, 11, 13, 17,... So you have to determine a number of the following digits: 2, 3, 5, 7, B (=decimal 11), D (=decimal 13). Note: you may assume the input is always correct or empty string, and symbols A,B,C,D,E,F are always uppercase.",
+        "declaration": "\nfunc HexKey(num string) int {\n",
+        "canonical_solution": "    primes := map[int32]interface{}{'2': nil, '3': nil, '5': nil, '7': nil, 'B': nil, 'D': nil}\n\ttotal := 0\n\tfor _, c := range num {\n\t\tif _, ok := primes[c]; ok {\n\t\t\ttotal++\n\t\t}\n\t}\n\treturn total\n}\n\n"
+    },
+    "79": {
+        "prompt": "import (\n\t\"fmt\"\n)\n\n// You will be given a number in decimal form and your task is to convert it to\n// binary format. The function should return a string, with each character representing a binary\n// number. Each character in the string will be '0' or '1'.\n// \n// There will be an extra couple of characters 'db' at the beginning and at the end of the string.\n// The extra characters are there to help with the format.\n// \n// Examples:\n// DecimalToBinary(15)   # returns \"db1111db\"\n// DecimalToBinary(32)   # returns \"db100000db\"\nfunc DecimalToBinary(decimal int) string {\n",
+        "question": "You will be given a number in decimal form and your task is to convert it to binary format. The function should return a string, with each character representing a binary number. Each character in the string will be '0' or '1'. There will be an extra couple of characters 'db' at the beginning and at the end of the string. The extra characters are there to help with the format.",
+        "declaration": "\nfunc DecimalToBinary(decimal int) string {\n",
+        "canonical_solution": "    return fmt.Sprintf(\"db%bdb\", decimal)\n}\n\n"
+    },
+    "80": {
+        "prompt": "\n// You are given a string s.\n// Your task is to check if the string is happy or not.\n// A string is happy if its length is at least 3 and every 3 consecutive letters are distinct\n// For example:\n// IsHappy(a) => false\n// IsHappy(aa) => false\n// IsHappy(abcd) => true\n// IsHappy(aabb) => false\n// IsHappy(adb) => true\n// IsHappy(xyy) => false\nfunc IsHappy(s string) bool {\n",
+        "question": "You are given a string s. Your task is to check if the string is happy or not. A string is happy if its length is at least 3 and every 3 consecutive letters are distinct",
+        "declaration": "\nfunc IsHappy(s string) bool {\n",
+        "canonical_solution": "    if len(s) < 3 {\n        return false\n    }\n    for i := 0; i < len(s)-2; i++ {\n        if s[i] == s[i+1] || s[i+1] == s[i+2] || s[i] == s[i+2] {\n            return false\n        }\n    }\n    return true\n}\n\n"
+    },
+    "81": {
+        "prompt": "\n// It is the last week of the semester and the teacher has to give the grades\n// to students. The teacher has been making her own algorithm for grading.\n// The only problem is, she has lost the code she used for grading.\n// She has given you a list of GPAs for some students and you have to write\n// a function that can output a list of letter grades using the following table:\n// GPA       |    Letter grade\n// 4.0                A+\n// > 3.7                A\n// > 3.3                A-\n// > 3.0                B+\n// > 2.7                B\n// > 2.3                B-\n// > 2.0                C+\n// > 1.7                C\n// > 1.3                C-\n// > 1.0                D+\n// > 0.7                D\n// > 0.0                D-\n// 0.0                E\n// \n// \n// Example:\n// grade_equation([4.0, 3, 1.7, 2, 3.5]) ==> [\"A+\", \"B\", \"C-\", \"C\", \"A-\"]\nfunc NumericalLetterGrade(grades []float64) []string {\n",
+        "question": "It is the last week of the semester and the teacher has to give the grades to students. The teacher has been making her own algorithm for grading. The only problem is, she has lost the code she used for grading. She has given you a list of GPAs for some students and you have to write a function that can output a list of letter grades using the following table: GPA | Letter grade 4.0 A+ > 3.7 A > 3.3 A- > 3.0 B+ > 2.7 B > 2.3 B- > 2.0 C+ > 1.7 C > 1.3 C- > 1.0 D+ > 0.7 D > 0.0 D- 0.0 E",
+        "declaration": "\nfunc NumericalLetterGrade(grades []float64) []string {\n",
+        "canonical_solution": "letter_grade := make([]string, 0, len(grades))\n    for _, gpa := range grades {\n        switch {\n        case gpa == 4.0:\n            letter_grade = append(letter_grade, \"A+\")\n        case gpa > 3.7:\n            letter_grade = append(letter_grade, \"A\")\n        case gpa > 3.3:\n            letter_grade = append(letter_grade, \"A-\")\n        case gpa > 3.0:\n            letter_grade = append(letter_grade, \"B+\")\n        case gpa > 2.7:\n            letter_grade = append(letter_grade, \"B\")\n        case gpa > 2.3:\n            letter_grade = append(letter_grade, \"B-\")\n        case gpa > 2.0:\n            letter_grade = append(letter_grade, \"C+\")\n        case gpa > 1.7:\n            letter_grade = append(letter_grade, \"C\")\n        case gpa > 1.3:\n            letter_grade = append(letter_grade, \"C-\")\n        case gpa > 1.0:\n            letter_grade = append(letter_grade, \"D+\")\n        case gpa > 0.7:\n            letter_grade = append(letter_grade, \"D\")\n        case gpa > 0.0:\n            letter_grade = append(letter_grade, \"D-\")\n        default:\n            letter_grade = append(letter_grade, \"E\")\n        }\n\n    }\n    return letter_grade\n}\n\n"
+    },
+    "82": {
+        "prompt": "\n// Write a function that takes a string and returns true if the string\n// length is a prime number or false otherwise\n// Examples\n// PrimeLength('Hello') == true\n// PrimeLength('abcdcba') == true\n// PrimeLength('kittens') == true\n// PrimeLength('orange') == false\nfunc PrimeLength(s string) bool {\n",
+        "question": "Write a function that takes a string and returns True if the string length is a prime number or False otherwise",
+        "declaration": "\nfunc PrimeLength(s string) bool {\n",
+        "canonical_solution": "    l := len(s)\n    if l == 0 || l == 1 {\n        return false\n    }\n    for i := 2; i < l; i++ {\n        if l%i == 0 {\n            return false\n        }\n    }\n    return true\n}\n\n"
+    },
+    "83": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given a positive integer n, return the count of the numbers of n-digit\n// positive integers that start or end with 1.\nfunc StartsOneEnds(n int) int {\n",
+        "question": "Given a positive integer n, return the count of the numbers of n-digit positive integers that start or end with 1.",
+        "declaration": "\nfunc StartsOneEnds(n int) int {\n",
+        "canonical_solution": "    if n == 1 {\n        return 1\n    }\n    return 18 * int(math.Pow(10, float64(n-2)))\n}\n\n"
+    },
+    "84": {
+        "prompt": "import (\n    \"fmt\"\n    \"strconv\"\n)\n\n// Given a positive integer N, return the total sum of its digits in binary.\n// \n// Example\n// For N = 1000, the sum of digits will be 1 the output should be \"1\".\n// For N = 150, the sum of digits will be 6 the output should be \"110\".\n// For N = 147, the sum of digits will be 12 the output should be \"1100\".\n// \n// Variables:\n// @N integer\n// Constraints: 0 \u2264 N \u2264 10000.\n// Output:\n// a string of binary number\nfunc Solve(N int) string {\n",
+        "question": "Given a positive integer N, return the total sum of its digits in binary.",
+        "declaration": "\nfunc Solve(N int) string {\n",
+        "canonical_solution": "    sum := 0\n    for _, c := range strconv.Itoa(N) {\n        sum += int(c - '0')\n    }\n    return fmt.Sprintf(\"%b\", sum)\n}\n\n"
+    },
+    "85": {
+        "prompt": "\n// Given a non-empty list of integers lst. Add the even elements that are at odd indices..\n// \n// Examples:\n// Add([4, 2, 6, 7]) ==> 2\nfunc Add(lst []int) int {\n",
+        "question": "Given a non-empty list of integers lst. add the even elements that are at odd indices..",
+        "declaration": "\nfunc Add(lst []int) int {\n",
+        "canonical_solution": "    sum := 0\n    for i := 1; i < len(lst); i += 2 {\n        if lst[i]%2 == 0 {\n            sum += lst[i]\n        }\n    }\n    return sum\n}\n\n"
+    },
+    "86": {
+        "prompt": "import (\n    \"sort\"\n    \"strings\"\n)\n\n// Write a function that takes a string and returns an ordered version of it.\n// Ordered version of string, is a string where all words (separated by space)\n// are replaced by a new word where all the characters arranged in\n// ascending order based on ascii value.\n// Note: You should keep the order of words and blank spaces in the sentence.\n// \n// For example:\n// AntiShuffle('Hi') returns 'Hi'\n// AntiShuffle('hello') returns 'ehllo'\n// AntiShuffle('Hello World!!!') returns 'Hello !!!Wdlor'\nfunc AntiShuffle(s string) string {\n",
+        "question": "Write a function that takes a string and returns an ordered version of it. Ordered version of string, is a string where all words (separated by space) are replaced by a new word where all the characters arranged in ascending order based on ascii value. Note: You should keep the order of words and blank spaces in the sentence.",
+        "declaration": "\nfunc AntiShuffle(s string) string {\n",
+        "canonical_solution": "    strs := make([]string, 0)\n    for _, i := range strings.Fields(s) {\n        word := []rune(i)\n        sort.Slice(word, func(i, j int) bool {\n            return word[i] < word[j]\n        })\n        strs = append(strs, string(word))\n    }\n    return strings.Join(strs, \" \")\n}\n\n"
+    },
+    "87": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// You are given a 2 dimensional data, as a nested lists,\n// which is similar to matrix, however, unlike matrices,\n// each row may contain a different number of columns.\n// Given lst, and integer x, find integers x in the list,\n// and return list of tuples, [(x1, y1), (x2, y2) ...] such that\n// each tuple is a coordinate - (row, columns), starting with 0.\n// Sort coordinates initially by rows in ascending order.\n// Also, sort coordinates of the row by columns in descending order.\n// \n// Examples:\n// GetRow([\n// [1,2,3,4,5,6],\n// [1,2,3,4,1,6],\n// [1,2,3,4,5,1]\n// ], 1) == [(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)]\n// GetRow([], 1) == []\n// GetRow([[], [1], [1, 2, 3]], 3) == [(2, 2)]\nfunc GetRow(lst [][]int, x int) [][2]int {\n",
+        "question": "You are given a 2 dimensional data, as a nested lists, which is similar to matrix, however, unlike matrices, each row may contain a different number of columns. Given lst, and integer x, find integers x in the list, and return list of tuples, [(x1, y1), (x2, y2) ...] such that each tuple is a coordinate - (row, columns), starting with 0. Sort coordinates initially by rows in ascending order. Also, sort coordinates of the row by columns in descending order.",
+        "declaration": "\nfunc GetRow(lst [][]int, x int) [][2]int {\n",
+        "canonical_solution": "    coords := make([][2]int, 0)\n    for i, row := range lst {\n        for j, item := range row {\n            if item == x {\n                coords = append(coords, [2]int{i, j})\n            }\n        }\n    }\n    sort.Slice(coords, func(i, j int) bool {\n        if coords[i][0] == coords[j][0] {\n            return coords[i][1] > coords[j][1]\n        }\n        return coords[i][0] < coords[j][0]\n    })\n\n    return coords\n}\n\n"
+    },
+    "88": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Given an array of non-negative integers, return a copy of the given array after sorting,\n// you will sort the given array in ascending order if the sum( first index value, last index value) is odd,\n// or sort it in descending order if the sum( first index value, last index value) is even.\n// \n// Note:\n// * don't change the given array.\n// \n// Examples:\n// * SortArray([]) => []\n// * SortArray([5]) => [5]\n// * SortArray([2, 4, 3, 0, 1, 5]) => [0, 1, 2, 3, 4, 5]\n// * SortArray([2, 4, 3, 0, 1, 5, 6]) => [6, 5, 4, 3, 2, 1, 0]\nfunc SortArray(array []int) []int {\n",
+        "question": "Given an array of non-negative integers, return a copy of the given array after sorting, you will sort the given array in ascending order if the sum( first index value, last index value) is odd, or sort it in descending order if the sum( first index value, last index value) is even. Note: * don't change the given array.",
+        "declaration": "\nfunc SortArray(array []int) []int {\n",
+        "canonical_solution": "    arr := make([]int, len(array))\n    copy(arr, array)\n    if len(arr) == 0 {\n        return arr\n    }\n    if (arr[0]+arr[len(arr)-1])%2 == 0 {\n        sort.Slice(arr, func(i, j int) bool {\n            return arr[i] > arr[j]\n        })\n    } else {\n        sort.Slice(arr, func(i, j int) bool {\n            return arr[i] < arr[j]\n        })\n    }\n    return arr\n}\n\n"
+    },
+    "89": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Create a function Encrypt that takes a string as an argument and\n// returns a string Encrypted with the alphabet being rotated.\n// The alphabet should be rotated in a manner such that the letters\n// shift down by two multiplied to two places.\n// For example:\n// Encrypt('hi') returns 'lm'\n// Encrypt('asdfghjkl') returns 'ewhjklnop'\n// Encrypt('gf') returns 'kj'\n// Encrypt('et') returns 'ix'\nfunc Encrypt(s string) string {\n",
+        "question": "Create a function encrypt that takes a string as an argument and returns a string encrypted with the alphabet being rotated. The alphabet should be rotated in a manner such that the letters shift down by two multiplied to two places.",
+        "declaration": "\nfunc Encrypt(s string) string {\n",
+        "canonical_solution": "    d := \"abcdefghijklmnopqrstuvwxyz\"\n    out := make([]rune, 0, len(s))\n    for _, c := range s {\n        pos := strings.IndexRune(d, c)\n        if pos != -1 {\n            out = append(out, []rune(d)[(pos+2*2)%26])\n        } else {\n            out = append(out, c)\n        }\n    }\n    return string(out)\n}\n\n"
+    },
+    "90": {
+        "prompt": "import (\n    \"math\"\n    \"sort\"\n)\n\n// You are given a list of integers.\n// Write a function NextSmallest() that returns the 2nd smallest element of the list.\n// Return nil if there is no such element.\n// \n// NextSmallest([1, 2, 3, 4, 5]) == 2\n// NextSmallest([5, 1, 4, 3, 2]) == 2\n// NextSmallest([]) == nil\n// NextSmallest([1, 1]) == nil\nfunc NextSmallest(lst []int) interface{} {\n",
+        "question": "You are given a list of integers. Write a function next_smallest() that returns the 2nd smallest element of the list. Return None if there is no such element.",
+        "declaration": "\nfunc NextSmallest(lst []int) interface{} {\n",
+        "canonical_solution": "    set := make(map[int]struct{})\n    for _, i := range lst {\n        set[i] = struct{}{}\n    }\n    vals := make([]int, 0, len(set))\n    for k := range set {\n        vals = append(vals, k)\n    }\n    sort.Slice(vals, func(i, j int) bool {\n        return vals[i] < vals[j]\n    })\n    if len(vals) < 2 {\n        return nil\n    }\n    return vals[1]\n}\n\n"
+    },
+    "91": {
+        "prompt": "import (\n    \"regexp\"\n)\n\n// You'll be given a string of words, and your task is to count the number\n// of boredoms. A boredom is a sentence that starts with the word \"I\".\n// Sentences are delimited by '.', '?' or '!'.\n// \n// For example:\n// >>> IsBored(\"Hello world\")\n// 0\n// >>> IsBored(\"The sky is blue. The sun is shining. I love this weather\")\n// 1\nfunc IsBored(S string) int {\n",
+        "question": "You'll be given a string of words, and your task is to count the number of boredoms. A boredom is a sentence that starts with the word \"I\". Sentences are delimited by '.', '?' or '!'.",
+        "declaration": "\nfunc IsBored(S string) int {\n",
+        "canonical_solution": "    r, _ := regexp.Compile(`[.?!]\\s*`)\n    sentences := r.Split(S, -1)\n    sum := 0\n    for _, s := range sentences {\n        if len(s) >= 2 && s[:2] == \"I \" {\n            sum++\n        }\n    }\n    return sum\n}\n\n"
+    },
+    "92": {
+        "prompt": "\n// Create a function that takes 3 numbers.\n// Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.\n// Returns false in any other cases.\n// \n// Examples\n// AnyInt(5, 2, 7) \u279e true\n// \n// AnyInt(3, 2, 2) \u279e false\n// \n// AnyInt(3, -2, 1) \u279e true\n// \n// AnyInt(3.6, -2.2, 2) \u279e false\nfunc AnyInt(x, y, z interface{}) bool {\n",
+        "question": "Create a function that takes 3 numbers. Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers. Returns false in any other cases.",
+        "declaration": "\nfunc AnyInt(x, y, z interface{}) bool {\n",
+        "canonical_solution": "    xx, ok := x.(int)\n    if !ok {\n        return false\n    }\n    yy, ok := y.(int)\n    if !ok {\n        return false\n    }\n    zz, ok := z.(int)\n    if !ok {\n        return false\n    }\n\n    if (xx+yy == zz) || (xx+zz == yy) || (yy+zz == xx) {\n        return true\n    }\n    return false\n}\n\n"
+    },
+    "93": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Write a function that takes a message, and Encodes in such a\n// way that it swaps case of all letters, replaces all vowels in\n// the message with the letter that appears 2 places ahead of that\n// vowel in the english alphabet.\n// Assume only letters.\n// \n// Examples:\n// >>> Encode('test')\n// 'TGST'\n// >>> Encode('This is a message')\n// 'tHKS KS C MGSSCGG'\nfunc Encode(message string) string {\n",
+        "question": "Write a function that takes a message, and encodes in such a way that it swaps case of all letters, replaces all vowels in the message with the letter that appears 2 places ahead of that vowel in the english alphabet. Assume only letters.",
+        "declaration": "\nfunc Encode(message string) string {\n",
+        "canonical_solution": "    vowels := \"aeiouAEIOU\"\n    vowels_replace := make(map[rune]rune)\n    for _, c := range vowels {\n        vowels_replace[c] = c + 2\n    }\n    result := make([]rune, 0, len(message))\n    for _, c := range message {\n        if 'a' <= c && c <= 'z' {\n            c += 'A' - 'a'\n        } else if 'A' <= c && c <= 'Z' {\n            c += 'a' - 'A'\n        }\n        if strings.ContainsRune(vowels, c) {\n            result = append(result, vowels_replace[c])\n        } else {\n            result = append(result, c)\n        }\n    }\n    return string(result)\n}\n\n"
+    },
+    "94": {
+        "prompt": "import (\n    \"math\"\n    \"strconv\"\n)\n\n// You are given a list of integers.\n// You need to find the largest prime value and return the sum of its digits.\n// \n// Examples:\n// For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10\n// For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25\n// For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13\n// For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11\n// For lst = [0,81,12,3,1,21] the output should be 3\n// For lst = [0,8,1,2,1,7] the output should be 7\nfunc Skjkasdkd(lst []int) int {\n",
+        "question": "You are given a list of integers. You need to find the largest prime value and return the sum of its digits.",
+        "declaration": "\nfunc Skjkasdkd(lst []int) int {\n",
+        "canonical_solution": "    isPrime := func(n int) bool {\n        for i := 2; i < int(math.Pow(float64(n), 0.5)+1); i++ {\n            if n%i == 0 {\n                return false\n            }\n        }\n        return true\n    }\n    maxx := 0\n    i := 0\n    for i < len(lst) {\n        if lst[i] > maxx && isPrime(lst[i]) {\n            maxx = lst[i]\n        }\n        i++\n    }\n    sum := 0\n    for _, d := range strconv.Itoa(maxx) {\n        sum += int(d - '0')\n    }\n    return sum\n}\n\n"
+    },
+    "95": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a dictionary, return true if all keys are strings in lower\n// case or all keys are strings in upper case, else return false.\n// The function should return false is the given dictionary is empty.\n// Examples:\n// CheckDictCase({\"a\":\"apple\", \"b\":\"banana\"}) should return true.\n// CheckDictCase({\"a\":\"apple\", \"A\":\"banana\", \"B\":\"banana\"}) should return false.\n// CheckDictCase({\"a\":\"apple\", 8:\"banana\", \"a\":\"apple\"}) should return false.\n// CheckDictCase({\"Name\":\"John\", \"Age\":\"36\", \"City\":\"Houston\"}) should return false.\n// CheckDictCase({\"STATE\":\"NC\", \"ZIP\":\"12345\" }) should return true.\nfunc CheckDictCase(dict map[interface{}]interface{}) bool {\n",
+        "question": "Given a dictionary, return True if all keys are strings in lower case or all keys are strings in upper case, else return False. The function should return False is the given dictionary is empty.",
+        "declaration": "\nfunc CheckDictCase(dict map[interface{}]interface{}) bool {\n",
+        "canonical_solution": "    if len(dict) == 0 {\n        return false\n    }\n    state := \"start\"\n    key := \"\"\n    ok := false\n    for k := range dict {\n        if key, ok = k.(string); !ok {\n            state = \"mixed\"\n            break\n        }\n        if state == \"start\" {\n            if key == strings.ToUpper(key) {\n                state = \"upper\"\n            } else if key == strings.ToLower(key) {\n                state = \"lower\"\n            } else {\n                break\n            }\n        } else if (state == \"upper\" && key != strings.ToUpper(key)) || (state == \"lower\" && key != strings.ToLower(key)) {\n            state = \"mixed\"\n            break\n        } else {\n            break\n        }\n    }\n    return state == \"upper\" || state == \"lower\"\n}\n\n"
+    },
+    "96": {
+        "prompt": "\n// Implement a function that takes an non-negative integer and returns an array of the first n\n// integers that are prime numbers and less than n.\n// for example:\n// CountUpTo(5) => [2,3]\n// CountUpTo(11) => [2,3,5,7]\n// CountUpTo(0) => []\n// CountUpTo(20) => [2,3,5,7,11,13,17,19]\n// CountUpTo(1) => []\n// CountUpTo(18) => [2,3,5,7,11,13,17]\nfunc CountUpTo(n int) []int {\n",
+        "question": "Implement a function that takes an non-negative integer and returns an array of the first n integers that are prime numbers and less than n. for",
+        "declaration": "\nfunc CountUpTo(n int) []int {\n",
+        "canonical_solution": "    primes := make([]int, 0)\n    for i := 2; i < n; i++ {\n        is_prime := true\n        for j := 2; j < i; j++ {\n            if i%j == 0 {\n                is_prime = false\n                break\n            }\n        }\n        if is_prime {\n            primes = append(primes, i)\n        }\n    }\n    return primes\n}\n\n"
+    },
+    "97": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Complete the function that takes two integers and returns\n// the product of their unit digits.\n// Assume the input is always valid.\n// Examples:\n// Multiply(148, 412) should return 16.\n// Multiply(19, 28) should return 72.\n// Multiply(2020, 1851) should return 0.\n// Multiply(14,-15) should return 20.\nfunc Multiply(a, b int) int {\n",
+        "question": "Complete the function that takes two integers and returns the product of their unit digits. Assume the input is always valid.",
+        "declaration": "\nfunc Multiply(a, b int) int {\n",
+        "canonical_solution": "    return int(math.Abs(float64(a%10)) * math.Abs(float64(b%10)))\n}\n\n"
+    },
+    "98": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a string s, count the number of uppercase vowels in even indices.\n// \n// For example:\n// CountUpper('aBCdEf') returns 1\n// CountUpper('abcdefg') returns 0\n// CountUpper('dBBE') returns 0\nfunc CountUpper(s string) int {\n",
+        "question": "Given a string s, count the number of uppercase vowels in even indices.",
+        "declaration": "\nfunc CountUpper(s string) int {\n",
+        "canonical_solution": "    count := 0\n    runes := []rune(s)\n    for i := 0; i < len(runes); i += 2 {\n        if strings.ContainsRune(\"AEIOU\", runes[i]) {\n            count += 1\n        }\n    }\n    return count\n}\n\n"
+    },
+    "99": {
+        "prompt": "import (\n    \"math\"\n    \"strconv\"\n    \"strings\"\n)\n\n// Create a function that takes a value (string) representing a number\n// and returns the closest integer to it. If the number is equidistant\n// from two integers, round it away from zero.\n// \n// Examples\n// >>> ClosestInteger(\"10\")\n// 10\n// >>> ClosestInteger(\"15.3\")\n// 15\n// \n// Note:\n// Rounding away from zero means that if the given number is equidistant\n// from two integers, the one you should return is the one that is the\n// farthest from zero. For example ClosestInteger(\"14.5\") should\n// return 15 and ClosestInteger(\"-14.5\") should return -15.\nfunc ClosestInteger(value string) int {\n",
+        "question": "Create a function that takes a value (string) representing a number and returns the closest integer to it. If the number is equidistant from two integers, round it away from zero.",
+        "declaration": "\nfunc ClosestInteger(value string) int {\n",
+        "canonical_solution": "    if strings.Count(value, \".\") == 1 {\n        // remove trailing zeros\n        for value[len(value)-1] == '0' {\n            value = value[:len(value)-1]\n        }\n    }\n    var res float64\n    num, _ := strconv.ParseFloat(value, 64)\n    if len(value) >= 2 && value[len(value)-2:] == \".5\" {\n        if num > 0 {\n            res = math.Ceil(num)\n        } else {\n            res = math.Floor(num)\n        }\n    } else if len(value) > 0 {\n        res = math.Round(num)\n    } else {\n        res = 0\n    }\n\n    return int(res)\n}\n\n"
+    },
+    "100": {
+        "prompt": "\n// Given a positive integer n, you have to make a pile of n levels of stones.\n// The first level has n stones.\n// The number of stones in the next level is:\n// - the next odd number if n is odd.\n// - the next even number if n is even.\n// Return the number of stones in each level in a list, where element at index\n// i represents the number of stones in the level (i+1).\n// \n// Examples:\n// >>> MakeAPile(3)\n// [3, 5, 7]\nfunc MakeAPile(n int) []int {\n",
+        "question": "Given a positive integer n, you have to make a pile of n levels of stones. The first level has n stones. The number of stones in the next level is: - the next odd number if n is odd. - the next even number if n is even. Return the number of stones in each level in a list, where element at index i represents the number of stones in the level (i+1).",
+        "declaration": "\nfunc MakeAPile(n int) []int {\n",
+        "canonical_solution": "    result := make([]int, 0, n)\n    for i := 0; i < n; i++ {\n        result = append(result, n+2*i)\n    }\n    return result\n}\n\n"
+    },
+    "101": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// You will be given a string of words separated by commas or spaces. Your task is\n// to split the string into words and return an array of the words.\n// \n// For example:\n// WordsString(\"Hi, my name is John\") == [\"Hi\", \"my\", \"name\", \"is\", \"John\"]\n// WordsString(\"One, two, three, four, five, six\") == [\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"]\nfunc WordsString(s string) []string {\n",
+        "question": "You will be given a string of words separated by commas or spaces. Your task is to split the string into words and return an array of the words.",
+        "declaration": "\nfunc WordsString(s string) []string {\n",
+        "canonical_solution": "    s_list := make([]rune, 0)\n\n    for _, c := range s {\n        if c == ',' {\n            s_list = append(s_list, ' ')\n        } else {\n            s_list = append(s_list, c)\n        }\n    }\n    return strings.Fields(string(s_list))\n}\n\n"
+    },
+    "102": {
+        "prompt": "\n// This function takes two positive numbers x and y and returns the\n// biggest even integer number that is in the range [x, y] inclusive. If\n// there's no such number, then the function should return -1.\n// \n// For example:\n// ChooseNum(12, 15) = 14\n// ChooseNum(13, 12) = -1\nfunc ChooseNum(x, y int) int {\n",
+        "question": "This function takes two positive numbers x and y and returns the biggest even integer number that is in the range [x, y] inclusive. If there's no such number, then the function should return -1.",
+        "declaration": "\nfunc ChooseNum(x, y int) int {\n",
+        "canonical_solution": "    if x > y {\n        return -1\n    }\n    if y % 2 == 0 {\n        return y\n    }\n    if x == y {\n        return -1\n    }\n    return y - 1\n}\n\n"
+    },
+    "103": {
+        "prompt": "import (\n    \"fmt\"\n    \"math\"\n)\n\n// You are given two positive integers n and m, and your task is to compute the\n// average of the integers from n through m (including n and m).\n// Round the answer to the nearest integer and convert that to binary.\n// If n is greater than m, return -1.\n// Example:\n// RoundedAvg(1, 5) => \"0b11\"\n// RoundedAvg(7, 5) => -1\n// RoundedAvg(10, 20) => \"0b1111\"\n// RoundedAvg(20, 33) => \"0b11010\"\nfunc RoundedAvg(n, m int) interface{} {\n",
+        "question": "You are given two positive integers n and m, and your task is to compute the average of the integers from n through m (including n and m). Round the answer to the nearest integer and convert that to binary. If n is greater than m, return -1.",
+        "declaration": "\nfunc RoundedAvg(n, m int) interface{} {\n",
+        "canonical_solution": "    if m < n {\n        return -1\n    }\n    summation := 0\n    for i := n;i < m+1;i++{\n        summation += i\n    }\n    return fmt.Sprintf(\"0b%b\", int(math.Round(float64(summation)/float64(m - n + 1))))\n}\n\n"
+    },
+    "104": {
+        "prompt": "import (\n    \"sort\"\n    \"strconv\"\n)\n\n// Given a list of positive integers x. return a sorted list of all\n// elements that hasn't any even digit.\n// \n// Note: Returned list should be sorted in increasing order.\n// \n// For example:\n// >>> UniqueDigits([15, 33, 1422, 1])\n// [1, 15, 33]\n// >>> UniqueDigits([152, 323, 1422, 10])\n// []\nfunc UniqueDigits(x []int) []int {\n",
+        "question": "Given a list of positive integers x. return a sorted list of all elements that hasn't any even digit. Note: Returned list should be sorted in increasing order.",
+        "declaration": "\nfunc UniqueDigits(x []int) []int {\n",
+        "canonical_solution": "    odd_digit_elements := make([]int, 0)\n    OUTER:\n    for _, i := range x {\n        for _, c := range strconv.Itoa(i) {\n            if (c - '0') % 2 == 0 {\n                continue OUTER\n            }\n        }\n            odd_digit_elements = append(odd_digit_elements, i)\n    }\n    sort.Slice(odd_digit_elements, func(i, j int) bool {\n        return odd_digit_elements[i] < odd_digit_elements[j]\n    })\n    return odd_digit_elements\n}\n\n"
+    },
+    "105": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Given an array of integers, sort the integers that are between 1 and 9 inclusive,\n// reverse the resulting array, and then replace each digit by its corresponding name from\n// \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\".\n// \n// For example:\n// arr = [2, 1, 1, 4, 5, 8, 2, 3]\n// -> sort arr -> [1, 1, 2, 2, 3, 4, 5, 8]\n// -> reverse arr -> [8, 5, 4, 3, 2, 2, 1, 1]\n// return [\"Eight\", \"Five\", \"Four\", \"Three\", \"Two\", \"Two\", \"One\", \"One\"]\n// \n// If the array is empty, return an empty array:\n// arr = []\n// return []\n// \n// If the array has any strange number ignore it:\n// arr = [1, -1 , 55]\n// -> sort arr -> [-1, 1, 55]\n// -> reverse arr -> [55, 1, -1]\n// return = ['One']\nfunc ByLength(arr []int)[]string {\n",
+        "question": "Given an array of integers, sort the integers that are between 1 and 9 inclusive, reverse the resulting array, and then replace each digit by its corresponding name from \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\".",
+        "declaration": "\nfunc ByLength(arr []int)[]string {\n",
+        "canonical_solution": "    dic := map[int]string{\n        1: \"One\",\n        2: \"Two\",\n        3: \"Three\",\n        4: \"Four\",\n        5: \"Five\",\n        6: \"Six\",\n        7: \"Seven\",\n        8: \"Eight\",\n        9: \"Nine\",\n    }\n    sort.Slice(arr, func(i, j int) bool {\n        return arr[i] > arr[j]\n    })\n    new_arr := make([]string, 0)\n    for _, item := range arr {\n        if v, ok := dic[item]; ok {\n            new_arr = append(new_arr, v)\n        }\n    }\n    return new_arr\n}\n\n"
+    },
+    "106": {
+        "prompt": " \n// Implement the Function F that takes n as a parameter,\n// and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even\n// or the sum of numbers from 1 to i otherwise.\n// i starts from 1.\n// the factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).\n// Example:\n// F(5) == [1, 2, 6, 24, 15]\nfunc F(n int) []int {\n",
+        "question": "Implement the function f that takes n as a parameter, and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even or the sum of numbers from 1 to i otherwise. i starts from 1. the factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).",
+        "declaration": "\nfunc F(n int) []int {\n",
+        "canonical_solution": "    ret := make([]int, 0, 5)\n    for i:=1;i<n+1;i++{\n        if i%2 == 0 {\n            x := 1\n            for j:=1;j<i+1;j++{\n                x*=j\n            }\n            ret = append(ret, x)\n        }else {\n            x := 0\n            for j:=1;j<i+1;j++{\n                x+=j\n            }\n            ret = append(ret, x)\n        }\n    }\n    return ret\n}\n\n"
+    },
+    "107": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Given a positive integer n, return a tuple that has the number of even and odd\n// integer palindromes that fall within the range(1, n), inclusive.\n// \n// Example 1:\n// \n// Input: 3\n// Output: (1, 2)\n// Explanation:\n// Integer palindrome are 1, 2, 3. one of them is even, and two of them are odd.\n// \n// Example 2:\n// \n// Input: 12\n// Output: (4, 6)\n// Explanation:\n// Integer palindrome are 1, 2, 3, 4, 5, 6, 7, 8, 9, 11. four of them are even, and 6 of them are odd.\n// \n// Note:\n// 1. 1 <= n <= 10^3\n// 2. returned tuple has the number of even and odd integer palindromes respectively.\nfunc EvenOddPalindrome(n int) [2]int {\n",
+        "question": "Given a positive integer n, return a tuple that has the number of even and odd integer palindromes that fall within the range(1, n), inclusive. Note: 1. 1 <= n <= 10^3 2. returned tuple has the number of even and odd integer palindromes respectively.",
+        "declaration": "\nfunc EvenOddPalindrome(n int) [2]int {\n",
+        "canonical_solution": "    is_palindrome := func (n int) bool {\n        s := strconv.Itoa(n)\n        for i := 0;i < len(s)>>1;i++ {\n            if s[i] != s[len(s)-i-1] {\n                return false\n            }\n        }\n        return true\n    }\n\n    even_palindrome_count := 0\n    odd_palindrome_count := 0\n\n    for i :=1;i<n+1;i++ {\n        if i%2 == 1 && is_palindrome(i){\n                odd_palindrome_count ++\n        } else if i%2 == 0 && is_palindrome(i) {\n            even_palindrome_count ++\n        }\n    }\n    return [2]int{even_palindrome_count, odd_palindrome_count}\n}\n\n"
+    },
+    "108": {
+        "prompt": "import (\n    \"math\"\n    \"strconv\"\n)\n\n// Write a function CountNums which takes an array of integers and returns\n// the number of elements which has a sum of digits > 0.\n// If a number is negative, then its first signed digit will be negative:\n// e.g. -123 has signed digits -1, 2, and 3.\n// >>> CountNums([]) == 0\n// >>> CountNums([-1, 11, -11]) == 1\n// >>> CountNums([1, 1, 2]) == 3\nfunc CountNums(arr []int) int {\n",
+        "question": "Write a function count_nums which takes an array of integers and returns the number of elements which has a sum of digits > 0. If a number is negative, then its first signed digit will be negative: e.g. -123 has signed digits -1, 2, and 3.",
+        "declaration": "\nfunc CountNums(arr []int) int {\n",
+        "canonical_solution": "    digits_sum:= func (n int) int {\n        neg := 1\n        if n < 0 {\n             n, neg = -1 * n, -1 \n        }\n        r := make([]int,0)\n        for _, c := range strconv.Itoa(n) {\n            r = append(r, int(c-'0'))\n        }\n        r[0] *= neg\n        sum := 0\n        for _, i := range r {\n            sum += i\n        }\n        return sum\n    }\n    count := 0\n    for _, i := range arr {\n        x := digits_sum(i)\n        if x > 0 {\n            count++\n        }\n    }\n    return count\n}\n\n"
+    },
+    "109": {
+        "prompt": "import (\n    \"math\"\n    \"sort\"\n)\n\n// We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The\n// numbers in the array will be randomly ordered. Your task is to determine if\n// it is possible to get an array sorted in non-decreasing order by performing\n// the following operation on the given array:\n// You are allowed to perform right shift operation any number of times.\n// \n// One right shift operation means shifting all elements of the array by one\n// position in the right direction. The last element of the array will be moved to\n// the starting position in the array i.e. 0th index.\n// \n// If it is possible to obtain the sorted array by performing the above operation\n// then return true else return false.\n// If the given array is empty then return true.\n// \n// Note: The given list is guaranteed to have unique elements.\n// \n// For Example:\n// \n// MoveOneBall([3, 4, 5, 1, 2])==>true\n// Explanation: By performin 2 right shift operations, non-decreasing order can\n// be achieved for the given array.\n// MoveOneBall([3, 5, 4, 1, 2])==>false\n// Explanation:It is not possible to get non-decreasing order for the given\n// array by performing any number of right shift operations.\nfunc MoveOneBall(arr []int) bool {\n",
+        "question": "We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The numbers in the array will be randomly ordered. Your task is to determine if it is possible to get an array sorted in non-decreasing order by performing the following operation on the given array: You are allowed to perform right shift operation any number of times. One right shift operation means shifting all elements of the array by one position in the right direction. The last element of the array will be moved to the starting position in the array i.e. 0th index. If it is possible to obtain the sorted array by performing the above operation then return True else return False. If the given array is empty then return True. Note: The given list is guaranteed to have unique elements. For",
+        "declaration": "\nfunc MoveOneBall(arr []int) bool {\n",
+        "canonical_solution": "    if len(arr)==0 {\n      return true\n    }\n    sorted_array := make([]int, len(arr))\n    copy(sorted_array, arr)\n    sort.Slice(sorted_array, func(i, j int) bool {\n        return sorted_array[i] < sorted_array[j]\n    })    \n    min_value := math.MaxInt\n    min_index := -1\n    for i, x := range arr {\n        if i < min_value {\n            min_index, min_value = i, x\n        }\n    }\n    my_arr := make([]int, len(arr[min_index:]))\n    copy(my_arr, arr[min_index:])\n    my_arr = append(my_arr, arr[0:min_index]...)\n    for i :=0;i<len(arr);i++ {\n      if my_arr[i]!=sorted_array[i]{\n        return false\n      }\n    }\n    return true\n}\n\n"
+    },
+    "110": {
+        "prompt": "\n// In this problem, you will implement a function that takes two lists of numbers,\n// and determines whether it is possible to perform an Exchange of elements\n// between them to make lst1 a list of only even numbers.\n// There is no limit on the number of Exchanged elements between lst1 and lst2.\n// If it is possible to Exchange elements between the lst1 and lst2 to make\n// all the elements of lst1 to be even, return \"YES\".\n// Otherwise, return \"NO\".\n// For example:\n// Exchange([1, 2, 3, 4], [1, 2, 3, 4]) => \"YES\"\n// Exchange([1, 2, 3, 4], [1, 5, 3, 4]) => \"NO\"\n// It is assumed that the input lists will be non-empty.\nfunc Exchange(lst1, lst2 []int) string {\n",
+        "question": "In this problem, you will implement a function that takes two lists of numbers, and determines whether it is possible to perform an exchange of elements between them to make lst1 a list of only even numbers. There is no limit on the number of exchanged elements between lst1 and lst2. If it is possible to exchange elements between the lst1 and lst2 to make all the elements of lst1 to be even, return \"YES\". Otherwise, return \"NO\".",
+        "declaration": "\nfunc Exchange(lst1, lst2 []int) string {\n",
+        "canonical_solution": "    odd := 0\n    even := 0\n    for _, i := range lst1 {\n        if i%2 == 1 {\n            odd++\n        }\n    }\n    for _, i := range lst2 {\n        if i%2 == 0 {\n            even++\n        }\n    }\n    if even >= odd {\n        return \"YES\"\n    }\n    return \"NO\"\n}\n            \n\n"
+    },
+    "111": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a string representing a space separated lowercase letters, return a dictionary\n// of the letter with the most repetition and containing the corresponding count.\n// If several letters have the same occurrence, return all of them.\n// \n// Example:\n// Histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}\n// Histogram('a b b a') == {'a': 2, 'b': 2}\n// Histogram('a b c a b') == {'a': 2, 'b': 2}\n// Histogram('b b b b a') == {'b': 4}\n// Histogram('') == {}\nfunc Histogram(test string) map[rune]int {\n",
+        "question": "Given a string representing a space separated lowercase letters, return a dictionary of the letter with the most repetition and containing the corresponding count. If several letters have the same occurrence, return all of them.",
+        "declaration": "\nfunc Histogram(test string) map[rune]int {\n",
+        "canonical_solution": "    dict1 := make(map[rune]int)\n    list1 := strings.Fields(test)\n    t := 0\n    count := func(lst []string, v string) int {\n        cnt := 0\n        for _, i := range lst {\n            if i == v {\n                cnt++\n            }\n        }\n        return cnt\n    }\n    for _, i := range list1 {\n        if c := count(list1, i); c>t && i!=\"\" {\n            t=c\n        }\n    }\n    if t>0 {\n        for _, i := range list1 {\n            if count(list1, i)==t {\n                dict1[[]rune(i)[0]]=t\n            }\n        }\n    }\n    return dict1\n}\n\n"
+    },
+    "112": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Task\n// We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c\n// then check if the result string is palindrome.\n// A string is called palindrome if it reads the same backward as forward.\n// You should return a tuple containing the result string and true/false for the check.\n// Example\n// For s = \"abcde\", c = \"ae\", the result should be ('bcd',false)\n// For s = \"abcdef\", c = \"b\"  the result should be ('acdef',false)\n// For s = \"abcdedcba\", c = \"ab\", the result should be ('cdedc',true)\nfunc ReverseDelete(s,c string) [2]interface{} {\n",
+        "question": "Task We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c then check if the result string is palindrome. A string is called palindrome if it reads the same backward as forward. You should return a tuple containing the result string and True/False for the check.",
+        "declaration": "\nfunc ReverseDelete(s,c string) [2]interface{} {\n",
+        "canonical_solution": "    rs := make([]rune, 0)\n    for _, r := range s {\n        if !strings.ContainsRune(c, r) {\n            rs = append(rs, r)\n        }\n    }\n    t := true\n    for i := 0;i < len(rs)>>1;i++ {\n        if rs[i] != rs[len(rs)-i-1] {\n            t=false\n            break\n        }\n    }\n    return [2]interface{}{string(rs), t}\n}\n\n"
+    },
+    "113": {
+        "prompt": "import (\n    \"fmt\"\n)\n\n// Given a list of strings, where each string consists of only digits, return a list.\n// Each element i of the output should be \"the number of odd elements in the\n// string i of the input.\" where all the i's should be replaced by the number\n// of odd digits in the i'th string of the input.\n// \n// >>> OddCount(['1234567'])\n// [\"the number of odd elements 4n the str4ng 4 of the 4nput.\"]\n// >>> OddCount(['3',\"11111111\"])\n// [\"the number of odd elements 1n the str1ng 1 of the 1nput.\",\n// \"the number of odd elements 8n the str8ng 8 of the 8nput.\"]\nfunc OddCount(lst []string) []string {\n",
+        "question": "Given a list of strings, where each string consists of only digits, return a list. Each element i of the output should be \"the number of odd elements in the string i of the input.\" where all the i's should be replaced by the number of odd digits in the i'th string of the input.",
+        "declaration": "\nfunc OddCount(lst []string) []string {\n",
+        "canonical_solution": "    res := make([]string, 0, len(lst))\n    for _, arr := range lst {\n        n := 0\n        for _, d := range arr {\n            if (d - '0') % 2 == 1 {\n                n++\n            }\n        }\n        res = append(res, fmt.Sprintf(\"the number of odd elements %dn the str%dng %d of the %dnput.\", n,n,n,n))\n    }\n    return res\n}\n\n"
+    },
+    "114": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given an array of integers nums, find the minimum sum of any non-empty sub-array\n// of nums.\n// Example\n// Minsubarraysum([2, 3, 4, 1, 2, 4]) == 1\n// Minsubarraysum([-1, -2, -3]) == -6\nfunc Minsubarraysum(nums []int) int {\n",
+        "question": "Given an array of integers nums, find the minimum sum of any non-empty sub-array of nums.",
+        "declaration": "\nfunc Minsubarraysum(nums []int) int {\n",
+        "canonical_solution": "    max_sum := 0\n    s := 0\n    for _, num := range nums {\n        s += -num\n        if s < 0 {\n            s = 0\n        }\n        if s > max_sum {\n            max_sum = s\n        }\n    }\n    if max_sum == 0 {\n        max_sum = math.MinInt\n        for _, i := range nums {\n            if -i > max_sum {\n                max_sum = -i\n            }\n        }\n    }\n    return -max_sum\n}\n\n"
+    },
+    "115": {
+        "prompt": "import (\n    \"math\"\n)\n\n// You are given a rectangular grid of wells. Each row represents a single well,\n// and each 1 in a row represents a single unit of water.\n// Each well has a corresponding bucket that can be used to extract water from it,\n// and all buckets have the same capacity.\n// Your task is to use the buckets to empty the wells.\n// Output the number of times you need to lower the buckets.\n// \n// Example 1:\n// Input:\n// grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]\n// bucket_capacity : 1\n// Output: 6\n// \n// Example 2:\n// Input:\n// grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]\n// bucket_capacity : 2\n// Output: 5\n// \n// Example 3:\n// Input:\n// grid : [[0,0,0], [0,0,0]]\n// bucket_capacity : 5\n// Output: 0\n// \n// Constraints:\n// * all wells have the same length\n// * 1 <= grid.length <= 10^2\n// * 1 <= grid[:,1].length <= 10^2\n// * grid[i][j] -> 0 | 1\n// * 1 <= capacity <= 10\nfunc MaxFill(grid [][]int, capacity int) int {\n",
+        "question": "You are given a rectangular grid of wells. Each row represents a single well, and each 1 in a row represents a single unit of water. Each well has a corresponding bucket that can be used to extract water from it, and all buckets have the same capacity. Your task is to use the buckets to empty the wells. Output the number of times you need to lower the buckets. Constraints: * all wells have the same length * 1 <= grid.length <= 10^2 * 1 <= grid[:,1].length <= 10^2 * grid[i][j] -> 0 | 1 * 1 <= capacity <= 10",
+        "declaration": "\nfunc MaxFill(grid [][]int, capacity int) int {\n",
+        "canonical_solution": "    result := 0\n    for _, arr := range grid {\n        sum := 0\n        for _, i := range arr {\n            sum += i\n        }\n        result += int(math.Ceil(float64(sum) / float64(capacity)))\n    }\n    return result\n}\n\n"
+    },
+    "116": {
+        "prompt": "import (\n    \"fmt\"\n    \"sort\"\n)\n\n// In this Kata, you have to sort an array of non-negative integers according to\n// number of ones in their binary representation in ascending order.\n// For similar number of ones, sort based on decimal value.\n// \n// It must be implemented like this:\n// >>> SortArray([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n// >>> SortArray([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n// >>> SortArray([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]\nfunc SortArray(arr []int) []int {\n",
+        "question": "In this Kata, you have to sort an array of non-negative integers according to number of ones in their binary representation in ascending order. For similar number of ones, sort based on decimal value. It must be implemented like this:",
+        "declaration": "\nfunc SortArray(arr []int) []int {\n",
+        "canonical_solution": "    sort.Slice(arr, func(i, j int) bool {\n        return arr[i] < arr[j]\n    })\n    sort.Slice(arr, func(i, j int) bool {\n        key := func(x int) int {\n            b := fmt.Sprintf(\"%b\", x)\n            cnt := 0\n            for _, r := range b {\n                if r == '1' {\n                    cnt++\n                }\n            }\n            return cnt\n        }\n        return key(arr[i]) < key(arr[j])\n    })\n    return arr\n}\n\n"
+    },
+    "117": {
+        "prompt": "import (\n    \"bytes\"\n    \"strings\"\n)\n\n// Given a string s and a natural number n, you have been tasked to implement\n// a function that returns a list of all words from string s that contain exactly\n// n consonants, in order these words appear in the string s.\n// If the string s is empty then the function should return an empty list.\n// Note: you may assume the input string contains only letters and spaces.\n// Examples:\n// SelectWords(\"Mary had a little lamb\", 4) ==> [\"little\"]\n// SelectWords(\"Mary had a little lamb\", 3) ==> [\"Mary\", \"lamb\"]\n// SelectWords(\"simple white space\", 2) ==> []\n// SelectWords(\"Hello world\", 4) ==> [\"world\"]\n// SelectWords(\"Uncle sam\", 3) ==> [\"Uncle\"]\nfunc SelectWords(s string, n int) []string {\n",
+        "question": "Given a string s and a natural number n, you have been tasked to implement a function that returns a list of all words from string s that contain exactly n consonants, in order these words appear in the string s. If the string s is empty then the function should return an empty list. Note: you may assume the input string contains only letters and spaces.",
+        "declaration": "\nfunc SelectWords(s string, n int) []string {\n",
+        "canonical_solution": "    result := make([]string, 0)\n    for _, word := range strings.Fields(s) {\n        n_consonants := 0\n        lower := strings.ToLower(word)\n        for i := 0;i < len(word); i++ {\n            if !bytes.Contains([]byte(\"aeiou\"), []byte{lower[i]}) {\n                n_consonants++\n            }\n        }\n        if n_consonants == n{\n            result = append(result, word)\n        }\n    }\n    return result\n}\n\n"
+    },
+    "118": {
+        "prompt": "import (\n    \"bytes\"\n)\n\n// You are given a word. Your task is to find the closest vowel that stands between\n// two consonants from the right side of the word (case sensitive).\n// \n// Vowels in the beginning and ending doesn't count. Return empty string if you didn't\n// find any vowel met the above condition.\n// \n// You may assume that the given string contains English letter only.\n// \n// Example:\n// GetClosestVowel(\"yogurt\") ==> \"u\"\n// GetClosestVowel(\"FULL\") ==> \"U\"\n// GetClosestVowel(\"quick\") ==> \"\"\n// GetClosestVowel(\"ab\") ==> \"\"\nfunc GetClosestVowel(word string) string {\n",
+        "question": "You are given a word. Your task is to find the closest vowel that stands between two consonants from the right side of the word (case sensitive). Vowels in the beginning and ending doesn't count. Return empty string if you didn't find any vowel met the above condition. You may assume that the given string contains English letter only.",
+        "declaration": "\nfunc GetClosestVowel(word string) string {\n",
+        "canonical_solution": "    if len(word) < 3 {\n        return \"\"\n    }\n\n    vowels := []byte(\"aeiouAEOUI\")\n    for i := len(word)-2; i > 0; i-- {\n        if bytes.Contains(vowels, []byte{word[i]}) {\n            if !bytes.Contains(vowels, []byte{word[i+1]}) && !bytes.Contains(vowels, []byte{word[i-1]}) {\n                return string(word[i])\n            }\n        }\n    }\n    return \"\"\n}\n\n"
+    },
+    "119": {
+        "prompt": "\n// You are given a list of two strings, both strings consist of open\n// parentheses '(' or close parentheses ')' only.\n// Your job is to check if it is possible to concatenate the two strings in\n// some order, that the resulting string will be good.\n// A string S is considered to be good if and only if all parentheses in S\n// are balanced. For example: the string '(())()' is good, while the string\n// '())' is not.\n// Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.\n// \n// Examples:\n// MatchParens(['()(', ')']) == 'Yes'\n// MatchParens([')', ')']) == 'No'\nfunc MatchParens(lst []string) string {\n",
+        "question": "You are given a list of two strings, both strings consist of open parentheses '(' or close parentheses ')' only. Your job is to check if it is possible to concatenate the two strings in some order, that the resulting string will be good. A string S is considered to be good if and only if all parentheses in S are balanced. For example: the string '(())()' is good, while the string '())' is not. Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.",
+        "declaration": "\nfunc MatchParens(lst []string) string {\n",
+        "canonical_solution": "    check := func(s string) bool {\n        val := 0\n        for _, i := range s {\n            if i == '(' {\n                val++\n            } else {\n                val--\n            }\n            if val < 0 {\n                return false\n            }\n        }\n        return val == 0\n    }\n\n    S1 := lst[0] + lst[1]\n    S2 := lst[1] + lst[0]\n    if check(S1) || check(S2) {\n        return \"Yes\"\n    }\n    return \"No\"\n}\n\n"
+    },
+    "120": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Given an array arr of integers and a positive integer k, return a sorted list\n// of length k with the Maximum k numbers in arr.\n// \n// Example 1:\n// \n// Input: arr = [-3, -4, 5], k = 3\n// Output: [-4, -3, 5]\n// \n// Example 2:\n// \n// Input: arr = [4, -4, 4], k = 2\n// Output: [4, 4]\n// \n// Example 3:\n// \n// Input: arr = [-3, 2, 1, 2, -1, -2, 1], k = 1\n// Output: [2]\n// \n// Note:\n// 1. The length of the array will be in the range of [1, 1000].\n// 2. The elements in the array will be in the range of [-1000, 1000].\n// 3. 0 <= k <= len(arr)\nfunc Maximum(arr []int, k int) []int {\n",
+        "question": "Given an array arr of integers and a positive integer k, return a sorted list of length k with the maximum k numbers in arr. Note: 1. The length of the array will be in the range of [1, 1000]. 2. The elements in the array will be in the range of [-1000, 1000]. 3. 0 <= k <= len(arr)",
+        "declaration": "\nfunc Maximum(arr []int, k int) []int {\n",
+        "canonical_solution": "    if k == 0 {\n        return []int{}\n    }\n    sort.Slice(arr, func(i, j int) bool {\n        return arr[i] < arr[j]\n    })\n    return arr[len(arr)-k:]\n}\n\n"
+    },
+    "121": {
+        "prompt": "\n// Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.\n// \n// Examples\n// Solution([5, 8, 7, 1]) ==> 12\n// Solution([3, 3, 3, 3, 3]) ==> 9\n// Solution([30, 13, 24, 321]) ==>0\nfunc Solution(lst []int) int {\n",
+        "question": "Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.",
+        "declaration": "\nfunc Solution(lst []int) int {\n",
+        "canonical_solution": "    sum:=0\n    for i, x := range lst {\n        if i&1==0&&x&1==1 {\n            sum+=x\n        }\n    }\n    return sum\n}\n\n"
+    },
+    "122": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Given a non-empty array of integers arr and an integer k, return\n// the sum of the elements with at most two digits from the first k elements of arr.\n// \n// Example:\n// \n// Input: arr = [111,21,3,4000,5,6,7,8,9], k = 4\n// Output: 24 # sum of 21 + 3\n// \n// Constraints:\n// 1. 1 <= len(arr) <= 100\n// 2. 1 <= k <= len(arr)\nfunc AddElements(arr []int, k int) int {\n",
+        "question": "Given a non-empty array of integers arr and an integer k, return the sum of the elements with at most two digits from the first k elements of arr.",
+        "declaration": "\nfunc AddElements(arr []int, k int) int {\n",
+        "canonical_solution": "    sum := 0\n    for _, elem := range arr[:k] {\n        if len(strconv.Itoa(elem)) <= 2 {\n            sum += elem\n        }\n    }\n    return sum\n}\n\n"
+    },
+    "123": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence.\n// \n// The Collatz conjecture is a conjecture in mathematics that concerns a sequence defined\n// as follows: start with any positive integer n. Then each term is obtained from the\n// previous term as follows: if the previous term is even, the next term is one half of\n// the previous term. If the previous term is odd, the next term is 3 times the previous\n// term plus 1. The conjecture is that no matter what value of n, the sequence will always reach 1.\n// \n// Note:\n// 1. Collatz(1) is [1].\n// 2. returned list sorted in increasing order.\n// \n// For example:\n// GetOddCollatz(5) returns [1, 5] # The collatz sequence for 5 is [5, 16, 8, 4, 2, 1], so the odd numbers are only 1, and 5.\nfunc GetOddCollatz(n int) []int {\n",
+        "question": "Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence. The Collatz conjecture is a conjecture in mathematics that concerns a sequence defined as follows: start with any positive integer n. Then each term is obtained from the previous term as follows: if the previous term is even, the next term is one half of the previous term. If the previous term is odd, the next term is 3 times the previous term plus 1. The conjecture is that no matter what value of n, the sequence will always reach 1. Note: 1. Collatz(1) is [1]. 2. returned list sorted in increasing order.",
+        "declaration": "\nfunc GetOddCollatz(n int) []int {\n",
+        "canonical_solution": "    odd_collatz := make([]int, 0)\n    if n&1==1 {\n        odd_collatz = append(odd_collatz, n)\n    }\n    for n > 1 {\n        if n &1==0 {\n            n>>=1\n        } else {\n            n = n*3 + 1\n        }            \n        if n&1 == 1 {\n            odd_collatz = append(odd_collatz, n)\n        }\n    }\n    sort.Slice(odd_collatz, func(i, j int) bool {\n        return odd_collatz[i] < odd_collatz[j]\n    })\n    return odd_collatz\n}\n\n"
+    },
+    "124": {
+        "prompt": "import (\n    \"strconv\"\n    \"strings\"\n)\n\n// You have to write a function which validates a given date string and\n// returns true if the date is valid otherwise false.\n// The date is valid if all of the following rules are satisfied:\n// 1. The date string is not empty.\n// 2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2.\n// 3. The months should not be less than 1 or higher than 12.\n// 4. The date should be in the format: mm-dd-yyyy\n// \n// for example:\n// ValidDate('03-11-2000') => true\n// \n// ValidDate('15-01-2012') => false\n// \n// ValidDate('04-0-2040') => false\n// \n// ValidDate('06-04-2020') => true\n// \n// ValidDate('06/04/2020') => false\nfunc ValidDate(date string) bool {\n",
+        "question": "You have to write a function which validates a given date string and returns True if the date is valid otherwise False. The date is valid if all of the following rules are satisfied: 1. The date string is not empty. 2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2. 3. The months should not be less than 1 or higher than 12. 4. The date should be in the format: mm-dd-yyyy",
+        "declaration": "\nfunc ValidDate(date string) bool {\n",
+        "canonical_solution": "    isInArray := func(arr []int, i int) bool {\n        for _, x := range arr {\n            if i == x {\n                return true\n            }\n        }\n        return false\n    }\n\n    date = strings.TrimSpace(date)\n    split := strings.SplitN(date, \"-\", 3)\n    if len(split) != 3 {\n        return false\n    }\n    month, err := strconv.Atoi(split[0])\n    if err != nil {\n        return false\n    }\n    day, err := strconv.Atoi(split[1])\n    if err != nil {\n        return false\n    }\n    _, err = strconv.Atoi(split[2])\n    if err != nil {\n        return false\n    }\n    if month < 1 || month > 12 {\n        return false\n    }\n    \n    if isInArray([]int{1,3,5,7,8,10,12}, month) && day < 1 || day > 31 {\n        return false\n    }\n    if isInArray([]int{4,6,9,11}, month) && day < 1 || day > 30 {\n        return false\n    }\n    if month == 2 && day < 1 || day > 29 {\n        return false\n    }\n\n    return true\n}\n\n"
+    },
+    "125": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you\n// should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the\n// alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25\n// Examples\n// SplitWords(\"Hello world!\") \u279e [\"Hello\", \"world!\"]\n// SplitWords(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]\n// SplitWords(\"abcdef\") == 3\nfunc SplitWords(txt string) interface{} {\n",
+        "question": "Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25",
+        "declaration": "\nfunc SplitWords(txt string) interface{} {\n",
+        "canonical_solution": "    if strings.Contains(txt, \" \") {\n        return strings.Fields(txt)\n    } else if strings.Contains(txt, \",\") {\n        return strings.Split(txt, \",\")\n    }\n    cnt := 0\n    for _, r := range txt {\n        if 'a' <= r && r <= 'z' && (r-'a')&1==1 {\n            cnt++\n        }\n    }\n    return cnt\n}\n\n"
+    },
+    "126": {
+        "prompt": "\n// Given a list of numbers, return whether or not they are sorted\n// in ascending order. If list has more than 1 duplicate of the same\n// number, return false. Assume no negative numbers and only integers.\n// \n// Examples\n// IsSorted([5]) \u279e true\n// IsSorted([1, 2, 3, 4, 5]) \u279e true\n// IsSorted([1, 3, 2, 4, 5]) \u279e false\n// IsSorted([1, 2, 3, 4, 5, 6]) \u279e true\n// IsSorted([1, 2, 3, 4, 5, 6, 7]) \u279e true\n// IsSorted([1, 3, 2, 4, 5, 6, 7]) \u279e false\n// IsSorted([1, 2, 2, 3, 3, 4]) \u279e true\n// IsSorted([1, 2, 2, 2, 3, 4]) \u279e false\nfunc IsSorted(lst []int) bool {\n",
+        "question": "Given a list of numbers, return whether or not they are sorted in ascending order. If list has more than 1 duplicate of the same number, return False. Assume no negative numbers and only integers.",
+        "declaration": "\nfunc IsSorted(lst []int) bool {\n",
+        "canonical_solution": "    count_digit := make(map[int]int)\n    for _, i := range lst {\n        count_digit[i] = 0\n    }\n    for _, i := range lst {\n        count_digit[i]++\n    }\n    for _, i := range lst {\n        if count_digit[i] > 2 {\n            return false\n        }\n    }\n    for i := 1;i < len(lst);i++ {\n        if lst[i-1] > lst[i] {\n            return false\n        }\n    }\n    return true\n}\n    \n\n"
+    },
+    "127": {
+        "prompt": "\n// You are given two intervals,\n// where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).\n// The given intervals are closed which means that the interval (start, end)\n// includes both start and end.\n// For each given interval, it is assumed that its start is less or equal its end.\n// Your task is to determine whether the length of Intersection of these two\n// intervals is a prime number.\n// Example, the Intersection of the intervals (1, 3), (2, 4) is (2, 3)\n// which its length is 1, which not a prime number.\n// If the length of the Intersection is a prime number, return \"YES\",\n// otherwise, return \"NO\".\n// If the two intervals don't intersect, return \"NO\".\n// \n// \n// [input/output] samples:\n// Intersection((1, 2), (2, 3)) ==> \"NO\"\n// Intersection((-1, 1), (0, 4)) ==> \"NO\"\n// Intersection((-3, -1), (-5, 5)) ==> \"YES\"\nfunc Intersection(interval1 [2]int, interval2 [2]int) string {\n",
+        "question": "You are given two intervals, where each interval is a pair of integers. For example, interval = (start, end) = (1, 2). The given intervals are closed which means that the interval (start, end) includes both start and end. For each given interval, it is assumed that its start is less or equal its end. Your task is to determine whether the length of intersection of these two intervals is a prime number. Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3) which its length is 1, which not a prime number. If the length of the intersection is a prime number, return \"YES\", otherwise, return \"NO\". If the two intervals don't intersect, return \"NO\".",
+        "declaration": "\nfunc Intersection(interval1 [2]int, interval2 [2]int) string {\n",
+        "canonical_solution": "    is_prime := func(num int) bool {\n        if num == 1 || num == 0 {\n            return false\n        }\n        if num == 2 {\n            return true\n        }\n        for i := 2;i < num;i++ {\n            if num%i == 0 {\n                return false\n            }\n        }\n        return true\n    }\n    l := interval1[0]\n    if interval2[0] > l {\n        l = interval2[0]\n    }\n    r := interval1[1]\n    if interval2[1] < r {\n        r = interval2[1]\n    }\n    length := r - l\n    if length > 0 && is_prime(length) {\n        return \"YES\"\n    }\n    return \"NO\"\n}\n\n"
+    },
+    "128": {
+        "prompt": "import (\n    \"math\"\n)\n\n// You are given an array arr of integers and you need to return\n// sum of magnitudes of integers multiplied by product of all signs\n// of each number in the array, represented by 1, -1 or 0.\n// Note: return nil for empty arr.\n// \n// Example:\n// >>> ProdSigns([1, 2, 2, -4]) == -9\n// >>> ProdSigns([0, 1]) == 0\n// >>> ProdSigns([]) == nil\nfunc ProdSigns(arr []int) interface{} {\n",
+        "question": "You are given an array arr of integers and you need to return sum of magnitudes of integers multiplied by product of all signs of each number in the array, represented by 1, -1 or 0. Note: return None for empty arr.",
+        "declaration": "\nfunc ProdSigns(arr []int) interface{} {\n",
+        "canonical_solution": "    if len(arr) == 0 {\n        return nil\n    }\n    cnt := 0\n    sum := 0\n    for _, i := range arr {\n        if i == 0 {\n            return 0\n        }\n        if i < 0 {\n            cnt++\n        }\n        sum += int(math.Abs(float64(i)))\n    }\n\n    prod := int(math.Pow(-1, float64(cnt)))\n    return prod * sum\n}\n\n"
+    },
+    "129": {
+        "prompt": "\n// Given a grid with N rows and N columns (N >= 2) and a positive integer k,\n// each cell of the grid contains a value. Every integer in the range [1, N * N]\n// inclusive appears exactly once on the cells of the grid.\n// \n// You have to find the minimum path of length k in the grid. You can start\n// from any cell, and in each step you can move to any of the neighbor cells,\n// in other words, you can go to cells which share an edge with you current\n// cell.\n// Please note that a path of length k means visiting exactly k cells (not\n// necessarily distinct).\n// You CANNOT go off the grid.\n// A path A (of length k) is considered less than a path B (of length k) if\n// after making the ordered lists of the values on the cells that A and B go\n// through (let's call them lst_A and lst_B), lst_A is lexicographically less\n// than lst_B, in other words, there exist an integer index i (1 <= i <= k)\n// such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have\n// lst_A[j] = lst_B[j].\n// It is guaranteed that the answer is unique.\n// Return an ordered list of the values on the cells that the minimum path go through.\n// \n// Examples:\n// \n// Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3\n// Output: [1, 2, 1]\n// \n// Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1\n// Output: [1]\nfunc Minpath(grid [][]int, k int) []int {\n",
+        "question": "Given a grid with N rows and N columns (N >= 2) and a positive integer k, each cell of the grid contains a value. Every integer in the range [1, N * N] inclusive appears exactly once on the cells of the grid. You have to find the minimum path of length k in the grid. You can start from any cell, and in each step you can move to any of the neighbor cells, in other words, you can go to cells which share an edge with you current cell. Please note that a path of length k means visiting exactly k cells (not necessarily distinct). You CANNOT go off the grid. A path A (of length k) is considered less than a path B (of length k) if after making the ordered lists of the values on the cells that A and B go through (let's call them lst_A and lst_B), lst_A is lexicographically less than lst_B, in other words, there exist an integer index i (1 <= i <= k) such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have lst_A[j] = lst_B[j]. It is guaranteed that the answer is unique. Return an ordered list of the values on the cells that the minimum path go through.",
+        "declaration": "\nfunc Minpath(grid [][]int, k int) []int {\n",
+        "canonical_solution": "    n := len(grid)\n    val := n * n + 1\n    for i:= 0;i < n; i++ {\n        for j := 0;j < n;j++ {\n            if grid[i][j] == 1 {\n                temp := make([]int, 0)\n                if i != 0 {\n                    temp = append(temp, grid[i - 1][j])\n                }\n\n                if j != 0 {\n                    temp = append(temp, grid[i][j - 1])\n                }\n\n                if i != n - 1 {\n                    temp = append(temp, grid[i + 1][j])\n                }\n\n                if j != n - 1 {\n                    temp = append(temp, grid[i][j + 1])\n                }\n                for _, x := range temp {\n                    if x < val {\n                        val = x\n                    }\n                }\n            }\n        }\n    }\n\n    ans := make([]int, 0, k)\n    for i := 0;i < k;i++ {\n        if i & 1 == 0 {\n            ans = append(ans,  1)\n        } else {\n            ans = append(ans,  val)\n        }\n    }\n    return ans\n}\n\n"
+    },
+    "130": {
+        "prompt": "\n// Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in\n// the last couple centuries. However, what people don't know is Tribonacci sequence.\n// Tribonacci sequence is defined by the recurrence:\n// Tri(1) = 3\n// Tri(n) = 1 + n / 2, if n is even.\n// Tri(n) =  Tri(n - 1) + Tri(n - 2) + Tri(n + 1), if n is odd.\n// For example:\n// Tri(2) = 1 + (2 / 2) = 2\n// Tri(4) = 3\n// Tri(3) = Tri(2) + Tri(1) + Tri(4)\n// = 2 + 3 + 3 = 8\n// You are given a non-negative integer number n, you have to a return a list of the\n// first n + 1 numbers of the Tribonacci sequence.\n// Examples:\n// Tri(3) = [1, 3, 2, 8]\nfunc Tri(n int) []float64 {\n",
+        "question": "Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in the last couple centuries. However, what people don't know is Tribonacci sequence. Tribonacci sequence is defined by the recurrence: tri(1) = 3 tri(n) = 1 + n / 2, if n is even. tri(n) = tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.",
+        "declaration": "\nfunc Tri(n int) []float64 {\n",
+        "canonical_solution": "    if n == 0 {\n        return []float64{1}\n    }\n    my_tri := []float64{1, 3}\n    for i := 2; i < n + 1; i++ {\n        if i &1 == 0 {\n            my_tri = append(my_tri, float64(i) / 2 + 1)\n        } else {\n            my_tri = append(my_tri, my_tri[i - 1] + my_tri[i - 2] + (float64(i) + 3) / 2)\n        }\n    }\n    return my_tri\n}\n\n"
+    },
+    "131": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Given a positive integer n, return the product of the odd Digits.\n// Return 0 if all Digits are even.\n// For example:\n// Digits(1)  == 1\n// Digits(4)  == 0\n// Digits(235) == 15\nfunc Digits(n int) int {\n",
+        "question": "Given a positive integer n, return the product of the odd digits. Return 0 if all digits are even.",
+        "declaration": "\nfunc Digits(n int) int {\n",
+        "canonical_solution": "    product := 1\n    odd_count := 0\n    for _, digit := range strconv.Itoa(n) {\n        int_digit := int(digit-'0')\n        if int_digit&1 == 1 {\n            product= product*int_digit\n            odd_count++\n        }\n    }\n    if odd_count==0 {\n        return 0\n    }\n    return product\n}\n\n"
+    },
+    "132": {
+        "prompt": "\n// Create a function that takes a string as input which contains only square brackets.\n// The function should return true if and only if there is a valid subsequence of brackets\n// where at least one bracket in the subsequence is nested.\n// \n// IsNested('[[]]') \u279e true\n// IsNested('[]]]]]]][[[[[]') \u279e false\n// IsNested('[][]') \u279e false\n// IsNested('[]') \u279e false\n// IsNested('[[][]]') \u279e true\n// IsNested('[[]][[') \u279e true\nfunc IsNested(s string) bool {\n",
+        "question": "Create a function that takes a string as input which contains only square brackets. The function should return True if and only if there is a valid subsequence of brackets where at least one bracket in the subsequence is nested.",
+        "declaration": "\nfunc IsNested(s string) bool {\n",
+        "canonical_solution": "    opening_bracket_index := make([]int, 0)\n    closing_bracket_index := make([]int, 0)\n    for i:=0;i < len(s);i++ {\n        if s[i] == '[' {\n            opening_bracket_index = append(opening_bracket_index, i)\n        } else {\n            closing_bracket_index = append(closing_bracket_index, i)\n        }\n    }\n    for i := 0;i < len(closing_bracket_index)>>1;i++ {\n        closing_bracket_index[i], closing_bracket_index[len(closing_bracket_index)-i-1] = closing_bracket_index[len(closing_bracket_index)-i-1], closing_bracket_index[i]\n    }\n    cnt := 0\n    i := 0\n    l := len(closing_bracket_index)\n    for _, idx := range opening_bracket_index {\n        if i < l && idx < closing_bracket_index[i] {\n            cnt++\n            i++\n        }\n    }\n    return cnt >= 2\n}\n\n    \n\n"
+    },
+    "133": {
+        "prompt": "import (\n    \"math\"\n)\n\n// You are given a list of numbers.\n// You need to return the sum of squared numbers in the given list,\n// round each element in the list to the upper int(Ceiling) first.\n// Examples:\n// For lst = [1,2,3] the output should be 14\n// For lst = [1,4,9] the output should be 98\n// For lst = [1,3,5,7] the output should be 84\n// For lst = [1.4,4.2,0] the output should be 29\n// For lst = [-2.4,1,1] the output should be 6\nfunc SumSquares(lst []float64) int {\n",
+        "question": "You are given a list of numbers. You need to return the sum of squared numbers in the given list, round each element in the list to the upper int(Ceiling) first.",
+        "declaration": "\nfunc SumSquares(lst []float64) int {\n",
+        "canonical_solution": "    squared := 0\n    for _, i := range lst {\n        squared += int(math.Pow(math.Ceil(i), 2))\n    }\n    return squared\n}\n\n"
+    },
+    "134": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Create a function that returns true if the last character\n// of a given string is an alphabetical character and is not\n// a part of a word, and false otherwise.\n// Note: \"word\" is a group of characters separated by space.\n// \n// Examples:\n// CheckIfLastCharIsALetter(\"apple pie\") \u279e false\n// CheckIfLastCharIsALetter(\"apple pi e\") \u279e true\n// CheckIfLastCharIsALetter(\"apple pi e \") \u279e false\n// CheckIfLastCharIsALetter(\"\") \u279e false\nfunc CheckIfLastCharIsALetter(txt string) bool {\n",
+        "question": "Create a function that returns True if the last character of a given string is an alphabetical character and is not a part of a word, and False otherwise. Note: \"word\" is a group of characters separated by space.",
+        "declaration": "\nfunc CheckIfLastCharIsALetter(txt string) bool {\n",
+        "canonical_solution": "    split := strings.Split(txt, \" \")\n    check := strings.ToLower(split[len(split)-1])\n    if len(check) == 1 && 'a' <= check[0] && check[0] <= 'z' {\n        return true\n    }\n    return false\n}\n\n"
+    },
+    "135": {
+        "prompt": "\n// Create a function which returns the largest index of an element which\n// is not greater than or equal to the element immediately preceding it. If\n// no such element exists then return -1. The given array will not contain\n// duplicate values.\n// \n// Examples:\n// CanArrange([1,2,4,3,5]) = 3\n// CanArrange([1,2,3]) = -1\nfunc CanArrange(arr []int) int {\n",
+        "question": "Create a function which returns the largest index of an element which is not greater than or equal to the element immediately preceding it. If no such element exists then return -1. The given array will not contain duplicate values.",
+        "declaration": "\nfunc CanArrange(arr []int) int {\n",
+        "canonical_solution": "    ind:=-1\n    i:=1\n    for i<len(arr) {\n      if arr[i]<arr[i-1] {\n        ind=i\n      }\n      i++\n    }\n    return ind\n}\n\n"
+    },
+    "136": {
+        "prompt": "\n// Create a function that returns a tuple (a, b), where 'a' is\n// the largest of negative integers, and 'b' is the smallest\n// of positive integers in a list.\n// If there is no negative or positive integers, return them as nil.\n// \n// Examples:\n// LargestSmallestIntegers([2, 4, 1, 3, 5, 7]) == (nil, 1)\n// LargestSmallestIntegers([]) == (nil, nil)\n// LargestSmallestIntegers([0]) == (nil, nil)\nfunc LargestSmallestIntegers(lst []int) [2]interface{}{\n",
+        "question": "Create a function that returns a tuple (a, b), where 'a' is the largest of negative integers, and 'b' is the smallest of positive integers in a list. If there is no negative or positive integers, return them as None.",
+        "declaration": "\nfunc LargestSmallestIntegers(lst []int) [2]interface{}{\n",
+        "canonical_solution": "    smallest := make([]int, 0)\n    largest := make([]int, 0)\n    for _, x := range lst {\n        if x < 0 {\n            smallest = append(smallest, x)\n        } else if x > 0 {\n            largest = append(largest, x)\n        }\n    }\n    var result [2]interface{}\n    if len(smallest) == 0 {\n        result[0] = nil\n    } else {\n        max := smallest[0]\n        for i := 1;i < len(smallest);i++ {\n            if smallest[i] > max {\n                max = smallest[i]\n            }\n        }\n        result[0] = max\n    }\n    if len(largest) == 0 {\n        result[1] = nil\n    } else {\n        min := largest[0]\n        for i := 1;i < len(largest);i++ {\n            if largest[i] < min {\n                min = largest[i]\n            }\n        }\n        result[1] = min\n    }\n    return result\n}\n\n"
+    },
+    "137": {
+        "prompt": "import (\n    \"fmt\"\n    \"strconv\"\n    \"strings\"\n)\n\n// Create a function that takes integers, floats, or strings representing\n// real numbers, and returns the larger variable in its given variable type.\n// Return nil if the values are equal.\n// Note: If a real number is represented as a string, the floating point might be . or ,\n// \n// CompareOne(1, 2.5) \u279e 2.5\n// CompareOne(1, \"2,3\") \u279e \"2,3\"\n// CompareOne(\"5,1\", \"6\") \u279e \"6\"\n// CompareOne(\"1\", 1) \u279e nil\nfunc CompareOne(a, b interface{}) interface{} {\n",
+        "question": "Create a function that takes integers, floats, or strings representing real numbers, and returns the larger variable in its given variable type. Return None if the values are equal. Note: If a real number is represented as a string, the floating point might be . or ,",
+        "declaration": "\nfunc CompareOne(a, b interface{}) interface{} {\n",
+        "canonical_solution": "    temp_a := fmt.Sprintf(\"%v\", a)\n    temp_b := fmt.Sprintf(\"%v\", b)\n    temp_a = strings.ReplaceAll(temp_a, \",\", \".\")\n    temp_b = strings.ReplaceAll(temp_b, \",\", \".\")\n    fa, _ := strconv.ParseFloat(temp_a, 64)\n    fb, _ := strconv.ParseFloat(temp_b, 64)\n    \n    if fa == fb {\n        return nil\n    }\n    if fa > fb {\n        return a\n    } else {\n        return b\n    }\n}\n\n"
+    },
+    "138": {
+        "prompt": "\n// Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers\n// Example\n// IsEqualToSumEven(4) == false\n// IsEqualToSumEven(6) == false\n// IsEqualToSumEven(8) == true\nfunc IsEqualToSumEven(n int) bool {\n",
+        "question": "Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers",
+        "declaration": "\nfunc IsEqualToSumEven(n int) bool {\n",
+        "canonical_solution": "    return n&1 == 0 && n >= 8\n}\n\n"
+    },
+    "139": {
+        "prompt": "\n// The Brazilian factorial is defined as:\n// brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!\n// where n > 0\n// \n// For example:\n// >>> SpecialFactorial(4)\n// 288\n// \n// The function will receive an integer as input and should return the special\n// factorial of this integer.\nfunc SpecialFactorial(n int) int {\n",
+        "question": "The Brazilian factorial is defined as: brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1! where n > 0",
+        "declaration": "\nfunc SpecialFactorial(n int) int {\n",
+        "canonical_solution": "    fact_i := 1\n    special_fact := 1\n    for i := 1; i <= n; i++ {\n        fact_i *= i\n        special_fact *= fact_i\n    }\n    return special_fact\n}\n\n"
+    },
+    "140": {
+        "prompt": "\n// Given a string text, replace all spaces in it with underscores,\n// and if a string has more than 2 consecutive spaces,\n// then replace all consecutive spaces with -\n// \n// FixSpaces(\"Example\") == \"Example\"\n// FixSpaces(\"Example 1\") == \"Example_1\"\n// FixSpaces(\" Example 2\") == \"_Example_2\"\n// FixSpaces(\" Example   3\") == \"_Example-3\"\nfunc FixSpaces(text string) string {\n",
+        "question": "Given a string text, replace all spaces in it with underscores, and if a string has more than 2 consecutive spaces, then replace all consecutive spaces with -",
+        "declaration": "\nfunc FixSpaces(text string) string {\n",
+        "canonical_solution": "    new_text := make([]byte, 0)\n    i := 0\n    start, end := 0, 0\n    for i < len(text) {\n        if text[i] == ' ' {\n            end++\n        } else {\n            switch {\n            case end - start > 2:\n                new_text = append(new_text, '-')\n            case end - start > 0:\n                for n := 0;n < end-start;n++ {\n                    new_text = append(new_text, '_')\n                }\n            }\n            new_text = append(new_text, text[i])\n            start, end = i+1, i+1\n        }\n        i+=1\n    }\n    if end - start > 2 {\n        new_text = append(new_text, '-')\n    } else if end - start > 0 {\n        new_text = append(new_text, '_')\n    }\n    return string(new_text)\n}\n\n"
+    },
+    "141": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Create a function which takes a string representing a file's name, and returns\n// 'Yes' if the the file's name is valid, and returns 'No' otherwise.\n// A file's name is considered to be valid if and only if all the following conditions\n// are met:\n// - There should not be more than three digits ('0'-'9') in the file's name.\n// - The file's name contains exactly one dot '.'\n// - The substring before the dot should not be empty, and it starts with a letter from\n// the latin alphapet ('a'-'z' and 'A'-'Z').\n// - The substring after the dot should be one of these: ['txt', 'exe', 'dll']\n// Examples:\n// FileNameCheck(\"example.txt\") # => 'Yes'\n// FileNameCheck(\"1example.dll\") # => 'No' (the name should start with a latin alphapet letter)\nfunc FileNameCheck(file_name string) string {\n",
+        "question": "Create a function which takes a string representing a file's name, and returns 'Yes' if the the file's name is valid, and returns 'No' otherwise. A file's name is considered to be valid if and only if all the following conditions are met: - There should not be more than three digits ('0'-'9') in the file's name. - The file's name contains exactly one dot '.' - The substring before the dot should not be empty, and it starts with a letter from the latin alphapet ('a'-'z' and 'A'-'Z'). - The substring after the dot should be one of these: ['txt', 'exe', 'dll']",
+        "declaration": "\nfunc FileNameCheck(file_name string) string {\n",
+        "canonical_solution": "    suf := []string{\"txt\", \"exe\", \"dll\"}\n    lst := strings.Split(file_name, \".\")\n    isInArray := func (arr []string, x string) bool {\n        for _, y := range arr {\n            if x == y {\n                return true\n            }\n        }\n        return false\n    }\n    switch {\n    case len(lst) != 2:\n        return \"No\"\n    case !isInArray(suf, lst[1]):\n        return \"No\"\n    case len(lst[0]) == 0:\n        return \"No\"\n    case 'a' > strings.ToLower(lst[0])[0] || strings.ToLower(lst[0])[0] > 'z':\n        return \"No\"\n    }\n    t := 0\n    for _, c := range lst[0] {\n        if '0' <= c && c <= '9' {\n            t++\n        }\n    }\n    if t > 3 {\n        return \"No\"\n    }\n    return \"Yes\"\n}\n\n"
+    },
+    "142": {
+        "prompt": "import (\n    \"math\"\n)\n\n// This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a\n// multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not\n// change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries.\n// \n// Examples:\n// For lst = [1,2,3] the output should be 6\n// For lst = []  the output should be 0\n// For lst = [-1,-5,2,-1,-5]  the output should be -126\nfunc SumSquares(lst []int) int {\n",
+        "question": "This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries.",
+        "declaration": "\nfunc SumSquares(lst []int) int {\n",
+        "canonical_solution": "    result := make([]int, 0)\n    for i := 0;i < len(lst);i++ {\n        switch {\n        case i %3 == 0:\n            result = append(result, int(math.Pow(float64(lst[i]), 2)))\n        case i % 4 == 0 && i%3 != 0:\n            result = append(result, int(math.Pow(float64(lst[i]), 3)))\n        default:\n            result = append(result, lst[i])\n        }\n    }\n    sum := 0\n    for _, x := range result {\n        sum += x\n    }\n    return sum\n}\n\n"
+    },
+    "143": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// You are given a string representing a sentence,\n// the sentence contains some words separated by a space,\n// and you have to return a string that contains the words from the original sentence,\n// whose lengths are prime numbers,\n// the order of the words in the new string should be the same as the original one.\n// \n// Example 1:\n// Input: sentence = \"This is a test\"\n// Output: \"is\"\n// \n// Example 2:\n// Input: sentence = \"lets go for swimming\"\n// Output: \"go for\"\n// \n// Constraints:\n// * 1 <= len(sentence) <= 100\n// * sentence contains only letters\nfunc WordsInSentence(sentence string) string {\n",
+        "question": "You are given a string representing a sentence, the sentence contains some words separated by a space, and you have to return a string that contains the words from the original sentence, whose lengths are prime numbers, the order of the words in the new string should be the same as the original one. Constraints: * 1 <= len(sentence) <= 100 * sentence contains only letters",
+        "declaration": "\nfunc WordsInSentence(sentence string) string {\n",
+        "canonical_solution": "    new_lst := make([]string, 0)\n    for _, word := range strings.Fields(sentence) {\n        flg := 0\n        if len(word) == 1 {\n            flg = 1\n        }\n        for i := 2;i < len(word);i++ {\n            if len(word)%i == 0 {\n                flg = 1\n            }\n        }\n        if flg == 0 || len(word) == 2 {\n            new_lst = append(new_lst, word)\n        }\n    }\n    return strings.Join(new_lst, \" \")\n}\n\n"
+    },
+    "144": {
+        "prompt": "import (\n    \"strconv\"\n    \"strings\"\n)\n\n// Your task is to implement a function that will Simplify the expression\n// x * n. The function returns true if x * n evaluates to a whole number and false\n// otherwise. Both x and n, are string representation of a fraction, and have the following format,\n// <numerator>/<denominator> where both numerator and denominator are positive whole numbers.\n// \n// You can assume that x, and n are valid fractions, and do not have zero as denominator.\n// \n// Simplify(\"1/5\", \"5/1\") = true\n// Simplify(\"1/6\", \"2/1\") = false\n// Simplify(\"7/10\", \"10/2\") = false\nfunc Simplify(x, n string) bool {\n",
+        "question": "Your task is to implement a function that will simplify the expression x * n. The function returns True if x * n evaluates to a whole number and False otherwise. Both x and n, are string representation of a fraction, and have the following format, <numerator>/<denominator> where both numerator and denominator are positive whole numbers. You can assume that x, and n are valid fractions, and do not have zero as denominator.",
+        "declaration": "\nfunc Simplify(x, n string) bool {\n",
+        "canonical_solution": "    xx := strings.Split(x, \"/\")\n    nn := strings.Split(n, \"/\")\n    a, _ := strconv.Atoi(xx[0])\n    b, _ := strconv.Atoi(xx[1])\n    c, _ := strconv.Atoi(nn[0])\n    d, _ := strconv.Atoi(nn[1])\n    numerator := float64(a*c)\n    denom := float64(b*d)\n    return numerator/denom == float64(int(numerator/denom))\n}\n\n"
+    },
+    "145": {
+        "prompt": "import (\n    \"sort\"\n    \"strconv\"\n)\n\n// Write a function which sorts the given list of integers\n// in ascending order according to the sum of their digits.\n// Note: if there are several items with similar sum of their digits,\n// order them based on their index in original list.\n// \n// For example:\n// >>> OrderByPoints([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]\n// >>> OrderByPoints([]) == []\nfunc OrderByPoints(nums []int) []int {\n",
+        "question": "Write a function which sorts the given list of integers in ascending order according to the sum of their digits. Note: if there are several items with similar sum of their digits, order them based on their index in original list.",
+        "declaration": "\nfunc OrderByPoints(nums []int) []int {\n",
+        "canonical_solution": "    digits_sum := func (n int) int {\n        neg := 1\n        if n < 0 {\n            n, neg = -1 * n, -1 \n        }\n        sum := 0\n        for i, c := range strconv.Itoa(n) {\n            if i == 0 {\n                sum += int(c-'0')*neg\n            } else {\n                sum += int(c-'0')\n            }\n        }\n        return sum\n    }\n    sort.SliceStable(nums, func(i, j int) bool {\n        return digits_sum(nums[i]) < digits_sum(nums[j])\n    })\n    return nums\n}\n\n"
+    },
+    "146": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Write a function that takes an array of numbers as input and returns\n// the number of elements in the array that are greater than 10 and both\n// first and last digits of a number are odd (1, 3, 5, 7, 9).\n// For example:\n// Specialfilter([15, -73, 14, -15]) => 1\n// Specialfilter([33, -2, -3, 45, 21, 109]) => 2\nfunc Specialfilter(nums []int) int {\n",
+        "question": "Write a function that takes an array of numbers as input and returns the number of elements in the array that are greater than 10 and both first and last digits of a number are odd (1, 3, 5, 7, 9).",
+        "declaration": "\nfunc Specialfilter(nums []int) int {\n",
+        "canonical_solution": "    count := 0\n    for _, num := range nums {\n        if num > 10 {\n            number_as_string := strconv.Itoa(num)\n            if number_as_string[0]&1==1 && number_as_string[len(number_as_string)-1]&1==1 {\n                count++\n            }\n        }\n    }        \n    return count\n}\n\n"
+    },
+    "147": {
+        "prompt": "\n// You are given a positive integer n. You have to create an integer array a of length n.\n// For each i (1 \u2264 i \u2264 n), the value of a[i] = i * i - i + 1.\n// Return the number of triples (a[i], a[j], a[k]) of a where i < j < k,\n// and a[i] + a[j] + a[k] is a multiple of 3.\n// \n// Example :\n// Input: n = 5\n// Output: 1\n// Explanation:\n// a = [1, 3, 7, 13, 21]\n// The only valid triple is (1, 7, 13).\nfunc GetMaxTriples(n int) int {\n",
+        "question": "You are given a positive integer n. You have to create an integer array a of length n. For each i (1 \u2264 i \u2264 n), the value of a[i] = i * i - i + 1. Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, and a[i] + a[j] + a[k] is a multiple of 3.",
+        "declaration": "\nfunc GetMaxTriples(n int) int {\n",
+        "canonical_solution": "    A := make([]int, 0)\n    for i := 1;i <= n;i++ {\n        A = append(A, i*i-i+1)\n    }\n    ans := 0\n    for i := 0;i < n;i++ {\n        for j := i + 1;j < n;j++ {\n            for k := j + 1;k < n;k++ {\n                if (A[i]+A[j]+A[k])%3 == 0 {\n                    ans++\n                }\n            }\n        }\n    }\n    return ans\n}\n\n"
+    },
+    "148": {
+        "prompt": "\n// There are eight planets in our solar system: the closerst to the Sun\n// is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn,\n// Uranus, Neptune.\n// Write a function that takes two planet names as strings planet1 and planet2.\n// The function should return a tuple containing all planets whose orbits are\n// located between the orbit of planet1 and the orbit of planet2, sorted by\n// the proximity to the sun.\n// The function should return an empty tuple if planet1 or planet2\n// are not correct planet names.\n// Examples\n// Bf(\"Jupiter\", \"Neptune\") ==> (\"Saturn\", \"Uranus\")\n// Bf(\"Earth\", \"Mercury\") ==> (\"Venus\")\n// Bf(\"Mercury\", \"Uranus\") ==> (\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\")\nfunc Bf(planet1, planet2 string) []string {\n",
+        "question": "There are eight planets in our solar system: the closerst to the Sun is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, Uranus, Neptune. Write a function that takes two planet names as strings planet1 and planet2. The function should return a tuple containing all planets whose orbits are located between the orbit of planet1 and the orbit of planet2, sorted by the proximity to the sun. The function should return an empty tuple if planet1 or planet2 are not correct planet names.",
+        "declaration": "\nfunc Bf(planet1, planet2 string) []string {\n",
+        "canonical_solution": "    planet_names := []string{\"Mercury\", \"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\", \"Neptune\"}\n    pos1 := -1\n    pos2 := -1\n    for i, x := range planet_names {\n        if planet1 == x {\n            pos1 = i\n        }\n        if planet2 == x {\n            pos2 = i\n        }\n    }\n    if pos1 == -1 || pos2 == -1 || pos1 == pos2 {\n        return []string{}\n    }\n    if pos1 < pos2 {\n        return planet_names[pos1 + 1: pos2]\n    }\n    return planet_names[pos2 + 1 : pos1]\n}\n\n"
+    },
+    "149": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Write a function that accepts a list of strings as a parameter,\n// deletes the strings that have odd lengths from it,\n// and returns the resulted list with a sorted order,\n// The list is always a list of strings and never an array of numbers,\n// and it may contain duplicates.\n// The order of the list should be ascending by length of each word, and you\n// should return the list sorted by that rule.\n// If two words have the same length, sort the list alphabetically.\n// The function should return a list of strings in sorted order.\n// You may assume that all words will have the same length.\n// For example:\n// assert list_sort([\"aa\", \"a\", \"aaa\"]) => [\"aa\"]\n// assert list_sort([\"ab\", \"a\", \"aaa\", \"cd\"]) => [\"ab\", \"cd\"]\nfunc SortedListSum(lst []string) []string {\n",
+        "question": "Write a function that accepts a list of strings as a parameter, deletes the strings that have odd lengths from it, and returns the resulted list with a sorted order, The list is always a list of strings and never an array of numbers, and it may contain duplicates. The order of the list should be ascending by length of each word, and you should return the list sorted by that rule. If two words have the same length, sort the list alphabetically. The function should return a list of strings in sorted order. You may assume that all words will have the same length.",
+        "declaration": "\nfunc SortedListSum(lst []string) []string {\n",
+        "canonical_solution": "    sort.SliceStable(lst, func(i, j int) bool {\n        return lst[i] < lst[j]\n    })\n    new_lst := make([]string, 0)\n    for _, i := range lst {\n        if len(i)&1==0 {\n            new_lst = append(new_lst, i)\n        }\n    }\n    sort.SliceStable(new_lst, func(i, j int) bool {\n        return len(new_lst[i]) < len(new_lst[j])\n    })\n    return new_lst\n}\n\n"
+    },
+    "150": {
+        "prompt": "\n// A simple program which should return the value of x if n is\n// a prime number and should return the value of y otherwise.\n// \n// Examples:\n// for XOrY(7, 34, 12) == 34\n// for XOrY(15, 8, 5) == 5\nfunc XOrY(n, x, y int) int {\n",
+        "question": "A simple program which should return the value of x if n is a prime number and should return the value of y otherwise.",
+        "declaration": "\nfunc XOrY(n, x, y int) int {\n",
+        "canonical_solution": "    if n == 1 {\n        return y\n    }\n    for i := 2;i < n;i++ {\n        if n % i == 0 {\n            return y\n        }\n    }\n    return x\n}\n\n"
+    },
+    "151": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given a list of numbers, return the sum of squares of the numbers\n// in the list that are odd. Ignore numbers that are negative or not integers.\n// \n// DoubleTheDifference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10\n// DoubleTheDifference([-1, -2, 0]) == 0\n// DoubleTheDifference([9, -2]) == 81\n// DoubleTheDifference([0]) == 0\n// \n// If the input list is empty, return 0.\nfunc DoubleTheDifference(lst []float64) int {\n",
+        "question": "Given a list of numbers, return the sum of squares of the numbers in the list that are odd. Ignore numbers that are negative or not integers. If the input list is empty, return 0.",
+        "declaration": "\nfunc DoubleTheDifference(lst []float64) int {\n",
+        "canonical_solution": "    sum := 0\n    for _, i := range lst {\n        if i > 0 && math.Mod(i, 2) != 0 && i == float64(int(i)) {\n            sum += int(math.Pow(i, 2))\n        }\n    }\n    return sum\n}\n\n"
+    },
+    "152": {
+        "prompt": "import (\n    \"math\"\n)\n\n// I think we all remember that feeling when the result of some long-awaited\n// event is finally known. The feelings and thoughts you have at that moment are\n// definitely worth noting down and comparing.\n// Your task is to determine if a person correctly guessed the results of a number of matches.\n// You are given two arrays of scores and guesses of equal length, where each index shows a match.\n// Return an array of the same length denoting how far off each guess was. If they have guessed correctly,\n// the value is 0, and if not, the value is the absolute difference between the guess and the score.\n// \n// \n// example:\n// \n// Compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]\n// Compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]\nfunc Compare(game,guess []int) []int {\n",
+        "question": "I think we all remember that feeling when the result of some long-awaited event is finally known. The feelings and thoughts you have at that moment are definitely worth noting down and comparing. Your task is to determine if a person correctly guessed the results of a number of matches. You are given two arrays of scores and guesses of equal length, where each index shows a match. Return an array of the same length denoting how far off each guess was. If they have guessed correctly, the value is 0, and if not, the value is the absolute difference between the guess and the score.",
+        "declaration": "\nfunc Compare(game,guess []int) []int {\n",
+        "canonical_solution": "    ans := make([]int, 0, len(game))\n    for i := range game {\n        ans = append(ans, int(math.Abs(float64(game[i]-guess[i]))))\n    }\n    return ans\n}\n\n"
+    },
+    "153": {
+        "prompt": "import (\n    \"math\"\n)\n\n// You will be given the name of a class (a string) and a list of extensions.\n// The extensions are to be used to load additional classes to the class. The\n// strength of the extension is as follows: Let CAP be the number of the uppercase\n// letters in the extension's name, and let SM be the number of lowercase letters\n// in the extension's name, the strength is given by the fraction CAP - SM.\n// You should find the strongest extension and return a string in this\n// format: ClassName.StrongestExtensionName.\n// If there are two or more extensions with the same strength, you should\n// choose the one that comes first in the list.\n// For example, if you are given \"Slices\" as the class and a list of the\n// extensions: ['SErviNGSliCes', 'Cheese', 'StuFfed'] then you should\n// return 'Slices.SErviNGSliCes' since 'SErviNGSliCes' is the strongest extension\n// (its strength is -1).\n// Example:\n// for StrongestExtension('my_class', ['AA', 'Be', 'CC']) == 'my_class.AA'\nfunc StrongestExtension(class_name string, extensions []string) string {\n",
+        "question": "You will be given the name of a class (a string) and a list of extensions. The extensions are to be used to load additional classes to the class. The strength of the extension is as follows: Let CAP be the number of the uppercase letters in the extension's name, and let SM be the number of lowercase letters in the extension's name, the strength is given by the fraction CAP - SM. You should find the strongest extension and return a string in this format: ClassName.StrongestExtensionName. If there are two or more extensions with the same strength, you should choose the one that comes first in the list. For example, if you are given \"Slices\" as the class and a list of the extensions: ['SErviNGSliCes', 'Cheese', 'StuFfed'] then you should return 'Slices.SErviNGSliCes' since 'SErviNGSliCes' is the strongest extension (its strength is -1).",
+        "declaration": "\nfunc StrongestExtension(class_name string, extensions []string) string {\n",
+        "canonical_solution": "    strong := extensions[0]\n    \n    my_val := math.MinInt\n    for _, s := range extensions {\n        cnt0, cnt1 := 0, 0\n        for _, c := range s {\n            switch {\n            case 'A' <= c && c <= 'Z':\n                cnt0++\n            case 'a' <= c && c <= 'z':\n                cnt1++\n            }\n        }\n        val := cnt0-cnt1\n        if val > my_val {\n            strong = s\n            my_val = val\n        }\n    }\n    return class_name + \".\" + strong\n}\n\n"
+    },
+    "154": {
+        "prompt": "\n// You are given 2 words. You need to return true if the second word or any of its rotations is a substring in the first word\n// CycpatternCheck(\"abcd\",\"abd\") => false\n// CycpatternCheck(\"hello\",\"ell\") => true\n// CycpatternCheck(\"whassup\",\"psus\") => false\n// CycpatternCheck(\"abab\",\"baa\") => true\n// CycpatternCheck(\"efef\",\"eeff\") => false\n// CycpatternCheck(\"himenss\",\"simen\") => true\nfunc CycpatternCheck(a , b string) bool {\n",
+        "question": "You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word",
+        "declaration": "\nfunc CycpatternCheck(a , b string) bool {\n",
+        "canonical_solution": "    l := len(b)\n    pat := b + b\n    for i := 0;i < len(a) - l + 1; i++ {\n        for j := 0;j<l + 1;j++ {\n            if a[i:i+l] == pat[j:j+l] {\n                return true\n            }\n        }\n    }\n    return false\n}\n\n"
+    },
+    "155": {
+        "prompt": "import (\n    \"strconv\"\n)\n\n// Given an integer. return a tuple that has the number of even and odd digits respectively.\n// \n// Example:\n// EvenOddCount(-12) ==> (1, 1)\n// EvenOddCount(123) ==> (1, 2)\nfunc EvenOddCount(num int) [2]int {\n",
+        "question": "Given an integer. return a tuple that has the number of even and odd digits respectively.",
+        "declaration": "\nfunc EvenOddCount(num int) [2]int {\n",
+        "canonical_solution": "    even_count := 0\n    odd_count := 0\n    if num < 0 {\n        num = -num\n    }\n    for _, r := range strconv.Itoa(num) {\n        if r&1==0 {\n            even_count++\n        } else {\n            odd_count++\n        }\n    }\n    return [2]int{even_count, odd_count}\n}\n\n"
+    },
+    "156": {
+        "prompt": "import (\n    \"strings\"\n)\n\n// Given a positive integer, obtain its roman numeral equivalent as a string,\n// and return it in lowercase.\n// Restrictions: 1 <= num <= 1000\n// \n// Examples:\n// >>> IntToMiniRoman(19) == 'xix'\n// >>> IntToMiniRoman(152) == 'clii'\n// >>> IntToMiniRoman(426) == 'cdxxvi'\nfunc IntToMiniRoman(number int) string {\n",
+        "question": "Given a positive integer, obtain its roman numeral equivalent as a string, and return it in lowercase. Restrictions: 1 <= num <= 1000",
+        "declaration": "\nfunc IntToMiniRoman(number int) string {\n",
+        "canonical_solution": "    num := []int{1, 4, 5, 9, 10, 40, 50, 90,  \n           100, 400, 500, 900, 1000}\n    sym := []string{\"I\", \"IV\", \"V\", \"IX\", \"X\", \"XL\",  \n           \"L\", \"XC\", \"C\", \"CD\", \"D\", \"CM\", \"M\"}\n    i := 12\n    res := \"\"\n    for number != 0 {\n        div := number / num[i] \n        number %= num[i] \n        for div != 0 {\n            res += sym[i] \n            div--\n        }\n        i--\n    }\n    return strings.ToLower(res)\n}\n\n"
+    },
+    "157": {
+        "prompt": "\n// Given the lengths of the three sides of a triangle. Return true if the three\n// sides form a right-angled triangle, false otherwise.\n// A right-angled triangle is a triangle in which one angle is right angle or\n// 90 degree.\n// Example:\n// RightAngleTriangle(3, 4, 5) == true\n// RightAngleTriangle(1, 2, 3) == false\nfunc RightAngleTriangle(a, b, c int) bool {\n",
+        "question": "Given the lengths of the three sides of a triangle. Return True if the three sides form a right-angled triangle, False otherwise. A right-angled triangle is a triangle in which one angle is right angle or 90 degree.",
+        "declaration": "\nfunc RightAngleTriangle(a, b, c int) bool {\n",
+        "canonical_solution": "    return a*a == b*b + c*c || b*b == a*a + c*c || c*c == a*a + b*b\n}\n\n"
+    },
+    "158": {
+        "prompt": "import (\n    \"sort\"\n)\n\n// Write a function that accepts a list of strings.\n// The list contains different words. Return the word with maximum number\n// of unique characters. If multiple strings have maximum number of unique\n// characters, return the one which comes first in lexicographical order.\n// \n// FindMax([\"name\", \"of\", \"string\"]) == \"string\"\n// FindMax([\"name\", \"enam\", \"game\"]) == \"enam\"\n// FindMax([\"aaaaaaa\", \"bb\" ,\"cc\"]) == \"\"aaaaaaa\"\nfunc FindMax(words []string) string {\n",
+        "question": "Write a function that accepts a list of strings. The list contains different words. Return the word with maximum number of unique characters. If multiple strings have maximum number of unique characters, return the one which comes first in lexicographical order.",
+        "declaration": "\nfunc FindMax(words []string) string {\n",
+        "canonical_solution": "    key := func (word string) (int, string) {\n        set := make(map[rune]struct{})\n        for _, r := range word {\n            set[r] = struct{}{}\n        }\n        return -len(set), word\n    }\n    sort.SliceStable(words, func(i, j int) bool {\n        ia, ib := key(words[i])\n        ja, jb := key(words[j])\n        if ia == ja {\n            return ib < jb\n        }\n        return ia < ja\n    })\n    return words[0]\n}\n\n"
+    },
+    "159": {
+        "prompt": "\n// You're a hungry rabbit, and you already have Eaten a certain number of carrots,\n// but now you need to Eat more carrots to complete the day's meals.\n// you should return an array of [ total number of Eaten carrots after your meals,\n// the number of carrots left after your meals ]\n// if there are not enough remaining carrots, you will Eat all remaining carrots, but will still be hungry.\n// \n// Example:\n// * Eat(5, 6, 10) -> [11, 4]\n// * Eat(4, 8, 9) -> [12, 1]\n// * Eat(1, 10, 10) -> [11, 0]\n// * Eat(2, 11, 5) -> [7, 0]\n// \n// Variables:\n// @number : integer\n// the number of carrots that you have Eaten.\n// @need : integer\n// the number of carrots that you need to Eat.\n// @remaining : integer\n// the number of remaining carrots thet exist in stock\n// \n// Constrain:\n// * 0 <= number <= 1000\n// * 0 <= need <= 1000\n// * 0 <= remaining <= 1000\n// \n// Have fun :)\nfunc Eat(number, need, remaining int) []int {\n",
+        "question": "You're a hungry rabbit, and you already have eaten a certain number of carrots, but now you need to eat more carrots to complete the day's meals. you should return an array of [ total number of eaten carrots after your meals, the number of carrots left after your meals ] if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.",
+        "declaration": "\nfunc Eat(number, need, remaining int) []int {\n",
+        "canonical_solution": "    if(need <= remaining) {\n        return []int{ number + need , remaining-need }\n    }\n    return []int{ number + remaining , 0}\n}\n\n"
+    },
+    "160": {
+        "prompt": "import (\n    \"math\"\n)\n\n// Given two lists operator, and operand. The first list has basic algebra operations, and\n// the second list is a list of integers. Use the two given lists to build the algebric\n// expression and return the evaluation of this expression.\n// \n// The basic algebra operations:\n// Addition ( + )\n// Subtraction ( - )\n// Multiplication ( * )\n// Floor division ( // )\n// Exponentiation ( ** )\n// \n// Example:\n// operator['+', '*', '-']\n// array = [2, 3, 4, 5]\n// result = 2 + 3 * 4 - 5\n// => result = 9\n// \n// Note:\n// The length of operator list is equal to the length of operand list minus one.\n// Operand is a list of of non-negative integers.\n// Operator list has at least one operator, and operand list has at least two operands.\nfunc DoAlgebra(operator []string, operand []int) int {\n",
+        "question": "Given two lists operator, and operand. The first list has basic algebra operations, and the second list is a list of integers. Use the two given lists to build the algebric expression and return the evaluation of this expression. The basic algebra operations: Addition ( + ) Subtraction ( - ) Multiplication ( * ) Floor division ( // ) Exponentiation ( ** )",
+        "declaration": "\nfunc DoAlgebra(operator []string, operand []int) int {\n",
+        "canonical_solution": "    higher := func(a, b string) bool {\n        if b == \"*\" || b == \"//\" || b == \"**\" {\n            return false\n        }\n        if a == \"*\" || a == \"//\" || a == \"**\" {\n            return true\n        }\n        return false\n    }\n    for len(operand) > 1 {\n        pos := 0\n        sign := operator[0]\n        for i, str := range operator {\n            if higher(str, sign) {\n                sign = str\n                pos = i\n            }\n        }\n        switch sign {\n        case \"+\":\n            operand[pos] += operand[pos+1]\n        case \"-\":\n            operand[pos] -= operand[pos+1]\n        case \"*\":\n            operand[pos] *= operand[pos+1]\n        case \"//\":\n            operand[pos] /= operand[pos+1]\n        case \"**\":\n            operand[pos] = int(math.Pow(float64(operand[pos]), float64(operand[pos+1])))\n        }\n        operator = append(operator[:pos], operator[pos+1:]...)\n        operand = append(operand[:pos+1], operand[pos+2:]...)\n    }\n    return operand [0]\n}\n\n"
+    },
+    "161": {
+        "prompt": "\n// You are given a string s.\n// if s[i] is a letter, reverse its case from lower to upper or vise versa,\n// otherwise keep it as it is.\n// If the string contains no letters, reverse the string.\n// The function should return the resulted string.\n// Examples\n// Solve(\"1234\") = \"4321\"\n// Solve(\"ab\") = \"AB\"\n// Solve(\"#a@C\") = \"#A@c\"\nfunc Solve(s string) string {\n",
+        "question": "You are given a string s. if s[i] is a letter, reverse its case from lower to upper or vise versa, otherwise keep it as it is. If the string contains no letters, reverse the string. The function should return the resulted string.",
+        "declaration": "\nfunc Solve(s string) string {\n",
+        "canonical_solution": "    flg := 0\n    new_str := []rune(s)\n    for i, r := range new_str {\n        if ('a' <= r && r <= 'z') || ('A' <= r && r <= 'Z') {\n            if 'a' <= r && r <= 'z' {\n                new_str[i] = r - 'a' + 'A'\n            } else {\n                new_str[i] = r - 'A' + 'a'\n            }\n            flg = 1\n        }\n    }\n    if flg == 0 {\n        for i := 0;i < len(new_str)>>1;i++ {\n            new_str[i], new_str[len(new_str)-i-1] = new_str[len(new_str)-i-1], new_str[i]\n        }\n    }\n    return string(new_str)\n}\n\n"
+    },
+    "162": {
+        "prompt": "import (\n    \"crypto/md5\"\n    \"fmt\"\n)\n\n// Given a string 'text', return its md5 hash equivalent string.\n// If 'text' is an empty string, return nil.\n// \n// >>> StringToMd5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'\nfunc StringToMd5(text string) interface{} {\n",
+        "question": "Given a string 'text', return its md5 hash equivalent string. If 'text' is an empty string, return None.",
+        "declaration": "\nfunc StringToMd5(text string) interface{} {\n",
+        "canonical_solution": "    if text == \"\" {\n        return nil\n    }\n    return fmt.Sprintf(\"%x\", md5.Sum([]byte(text)))\n}\n\n"
+    },
+    "163": {
+        "prompt": "\n// Given two positive integers a and b, return the even digits between a\n// and b, in ascending order.\n// \n// For example:\n// GenerateIntegers(2, 8) => [2, 4, 6, 8]\n// GenerateIntegers(8, 2) => [2, 4, 6, 8]\n// GenerateIntegers(10, 14) => []\nfunc GenerateIntegers(a, b int) []int {\n",
+        "question": "Given two positive integers a and b, return the even digits between a and b, in ascending order.",
+        "declaration": "\nfunc GenerateIntegers(a, b int) []int {\n",
+        "canonical_solution": "    min := func (a, b int) int {\n        if a > b {\n            return b\n        }\n        return a\n    }\n    max := func (a, b int) int {\n        if a > b {\n            return a\n        }\n        return b\n    }\n    lower := max(2, min(a, b))\n    upper := min(8, max(a, b))\n    ans := make([]int, 0)\n    for i := lower;i <= upper;i++ {\n        if i&1==0 {\n            ans = append(ans, i)\n        }\n    }\n    return ans\n}\n\n"
+    }
+}

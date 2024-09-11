@@ -1,0 +1,15 @@
+/evaluation/model/codellama
+/evaluation/model/llama3
+/evaluation/model/codellama/CodeLlama-*
+/evaluation/model/llama3/Meta-Llama-3-*
+__pycache__/
+*.gz
+test/
+validation/
+*.log
+/evaluation/analyze/comments/*
+test.ipynb
+/evaluation/data/apps/APPS/
+/evaluation/analyze
+/evaluation/data/bigcodebench/sanitized_calibrated_samples
+humaneval-*
