@@ -23,6 +23,7 @@ CodeJudge is an off-the-shelf evaluation framework that can be easily integrated
 git clone https://github.com/VichyTong/CodeJudge
 cd CodeJudge
 conda create -n codejudge python=3.10 -y
+conda activate codejudge
 pip install -r requirements.txt
 ```
 
