@@ -8,7 +8,7 @@
 CodeJudge is a code evaluation framework that leverages LLMs to evaluate the semantic correctness of generated code *without the need of test cases*. 
 
 ### 💡 Simple insight but effient
-Results show that CodeJudge significantly outperformed existing methods across four LLMs we tested. urthermore, compared with a SOTA GPT-3.5-based code evaluation method, CodeJudge achieved better results even when using a much smaller model, Llama-3-8B.
+Results show that CodeJudge significantly outperformed existing methods across the four LLMs we tested. Furthermore, compared to a SOTA GPT-3.5-based code evaluation method, CodeJudge achieved better results even when using a much smaller model, Llama-3-8B.
 
 ### ⚡ Off-the-shelf framework that is easy to use
 CodeJudge is an off-the-shelf evaluation framework that can be easily integrated into new LLM-based code generation systems.
