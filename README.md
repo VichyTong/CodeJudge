@@ -88,8 +88,8 @@ If you find our work helpful, please consider citing our paper:
 ```
 @inproceedings{tong-zhang-2024-codejudge,
     title = "{C}ode{J}udge: Evaluating Code Generation with Large Language Models",
-    author = "Tong, Weixi  and Zhang, Tianyi",
-    editor = "Al-Onaizan, Yaser  and Bansal, Mohit  and Chen, Yun-Nung",
+    author = "Tong, Weixi  and  Zhang, Tianyi",
+    editor = "Al-Onaizan, Yaser  and  Bansal, Mohit  and  Chen, Yun-Nung",
     booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
     month = nov,
     year = "2024",
