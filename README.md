@@ -8,7 +8,7 @@
 CodeJudge is a code evaluation framework that leverages LLMs to evaluate the semantic correctness of generated code *without the need of test cases*. 
 
 ### 💡 Simple insight but effient
-Results show that CodeJudge significantly outperformed existing methods across the four LLMs we tested. Furthermore, compared to a SOTA GPT-3.5-based code evaluation method, CodeJudge achieved better results even when using a much smaller model, Llama-3-8B.
+Results show that CodeJudge significantly outperformed existing methods across the four LLMs we tested. Furthermore, compared to a SOTA GPT-3.5-based code evaluation method, CodeJudge achieved better results even when using a much smaller model, Llama-3-8B-Instruct.
 
 ### ⚡ Off-the-shelf framework that is easy to use
 CodeJudge is an off-the-shelf evaluation framework that can be easily integrated into new LLM-based code generation systems.
@@ -82,3 +82,20 @@ We thank these greate works:
 - [APPS](https://github.com/hendrycks/apps) is a Python code generation benchmark that includes introductory, interview-level, and competition-level tasks collected from coding competition websites.
 - [BigCodeBench](https://github.com/bigcode-project/bigcodebench) is a recently released code generation benchmark with 1,140 practical and challenging programming tasks.
 - We also thank [MuliPL-E](https://github.com/nuprl/MultiPL-E) for their excellent code for sampling programs using code generation LLMs.
+
+## Citation
+If you find our work helpful, please consider citing our paper:
+```
+@inproceedings{tong-zhang-2024-codejudge,
+    title = "{C}ode{J}udge: Evaluating Code Generation with Large Language Models",
+    author = "Tong, Weixi  and Zhang, Tianyi",
+    editor = "Al-Onaizan, Yaser  and Bansal, Mohit  and Chen, Yun-Nung",
+    booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+    year = "2024",
+    address = "Miami, Florida, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.emnlp-main.1118",
+    pages = "20032--20051"
+}
+```
