@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.postimg.cc/4NmYh6Kq/logo.png" width="150" style="margin-bottom: 0.2;"/>
+    <img src="paper/images/icon.png" width="150" style="margin-bottom: 0.2;"/>
 <p>
 <h2 align="center"> CodeJudge: Evaluating Code Generation with Large Language Models</h2>
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.  </h2>
