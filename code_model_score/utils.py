@@ -257,8 +257,7 @@ def answer_to_score(answer, return_type):
             except Exception:
                 print(f"Invalid answer: {answer}")
                 return -1
-        return 1.0 if score == 100 else 0.0
-        # return max(score, 0) / 100
+        return max(score, 0) / 100
     elif return_type == "0_to_4_score_functional_correctness":
         return process_raw_content(answer, "functional correctness")
     elif return_type == "0_to_4_score_usefulness":
